@@ -1,6 +1,11 @@
 import './App.css'
 import Header from './components/header';
 import ProductCard from './components/productCard';
+import LoginPage from './pages/login';
+import SignUpPage from './pages/signUp';
+import HomePage from './pages/home';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AdminPage from './pages/adminPage';
 
 
 
@@ -8,15 +13,19 @@ import ProductCard from './components/productCard';
 function App() {
 
   return (
-    <div className='w-full h-screen bg-amber-950 flex flex-col justify-center items-center'>
-      <div className='w-[100px] h-[100px] bg-blue-600'></div>
-      <div className='w-[100px] h-[100px] bg-green-600'></div>
-      <div className='w-[100px] h-[100px] bg-yellow-600'></div>
-      <div className='w-[100px] h-[100px] bg-red-500'></div>
-      <div className='w-[100px] h-[100px] bg-black'></div>
-      <div className='w-[100px] h-[100px] bg-white'></div>
+    <BrowserRouter>
+      <Header />
+      <div className='w-full h-screen flex flex-col justify-evenly items-start'>
+        <Routes path="/*">
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/admin/*" element={<AdminPage />} />
+          <Route path="/*" element={<h1 className='text-red-700 font-bold text-4xl '>404 Not Found</h1>} />
 
-    </div>
+        </Routes>
+      </div>
+    </BrowserRouter>
   )
 }
 
