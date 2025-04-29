@@ -3,7 +3,7 @@ export default function HomePage(){
         <div className="w-full h-screen flex flex-col justify-evenly items-center ">
             <h1 className="text-blue-800 font-bold text-4xl text-center">Well come to CRYSTAL BEAUTY CLEAR</h1>
             <p className="text-blue-700 font-sans font-style-oblique text-1xl text-center">Everything Under One Space</p>
-            <button className="bg-blue-800 rounded-md text-white ">Login</button>
+            <button className="bg-blue-800 rounded-md text-white">Login</button>
 
         </div>
     )

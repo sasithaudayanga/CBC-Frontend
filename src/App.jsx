@@ -14,8 +14,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header />
+      
       <div className='w-full h-screen flex flex-col justify-evenly items-start'>
+        <Header />
         <Routes path="/*">
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />

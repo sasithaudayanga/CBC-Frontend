@@ -2,7 +2,7 @@ import { Link, Route, Routes } from "react-router-dom";
 
 export default function AdminPage(){
     return(
-        <div className="w-full h-screen flex to-[150px]">
+        <div className="w-full h-screen flex top-[150px]">
             <div className="h-full w-[300px] flex flex-col">
 
                 <Link to ="/admin/products">Products</Link>
