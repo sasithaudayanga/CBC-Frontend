@@ -1,13 +1,26 @@
+import axios from "axios"
 import { useState } from "react"
+import toast from "react-hot-toast"
 
 export default function LoginPage() {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-    function handleLogin() {
-        console.log(email)
-        console.log(password)
+    async function handleLogin() {
+
+        try {
+            const response = await axios.post("http://localhost:3000/users/login", {
+                email: email,
+                password: password
+            })
+
+            toast.success(response.data.message)
+
+        } catch (err) {
+            toast.error(err.response.data.message)
+        }
+
     }
 
     return (
@@ -17,32 +30,43 @@ export default function LoginPage() {
             </div>
 
             <div className="w-[50%] h-full flex justify-center items-center">
-                <div className="w-[400px] h-[500px] rounded-3xl backdrop-blur-md shadow-2xl flex flex-col justify-center items-center">
-                    <input
-                        onChange={
-                            (e) => {
-                                setEmail(e.target.value)
-                            }}
-                        className="my-[10px] w-[300px] h-[50px] 
+                <div className="w-[350px] h-[500px] rounded-4xl backdrop-blur-md shadow-2xl flex flex-col justify-center items-center">
+                    
+                    <div className=" w-[100px] h-[100px] flex flex-col justify-center items-center bg-[url('/userlog.png')] bg-center">
+
+                    </div>
+
+                    <div className="w-[350px] h-[300px] flex flex-col justify-center items-center">
+                        <input
+                            onChange={
+                                (e) => {
+                                    setEmail(e.target.value)
+                                }}
+                            value={email}
+                            className="my-[10px] w-[300px] h-[50px] 
                      border border-[#c3efe9] rounded-2xl"
-                    />
+                        />
 
-                    <input
-                        onChange={
-                            (e) => {
-                                setPassword(e.target.value)
-                            }}
-                        className="my-[10px] w-[300px] h-[50px] border
+                        <input
+                            onChange={
+                                (e) => {
+                                    setPassword(e.target.value)
+                                }}
+                            value={password}
+                            className="my-[10px] w-[300px] h-[50px] border
                       border-[#c3efe9]  rounded-2xl" type="password"
-                    />
+                        />
 
-                    <button
-                        onClick={handleLogin}
-                        className="cursor-pointer my-[10px] w-[300px] h-[50px] 
+                        <button
+                            onClick={handleLogin}
+                            className="cursor-pointer my-[10px] w-[300px] h-[50px] 
                     border border-[#c3efe9] rounded-2xl font-bold
                      text-white text-[25px]">
-                        LogIn
-                    </button>
+                            LogIn
+                        </button>
+
+                    </div>
+
 
                 </div>
 
