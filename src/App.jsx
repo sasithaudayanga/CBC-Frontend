@@ -6,6 +6,7 @@ import SignUpPage from './pages/signUp';
 import HomePage from './pages/home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdminPage from './pages/adminPage';
+import TestPage from './pages/test';
 
 
 
@@ -22,6 +23,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/admin/*" element={<AdminPage />} />
+          <Route path="/testing/*" element={<TestPage />} />
           <Route path="/*" element={<h1 className='text-red-700 font-bold text-4xl '>404 Not Found</h1>} />
 
         </Routes>
