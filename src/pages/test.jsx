@@ -5,14 +5,18 @@ export default function TestPage() {
     const [pass, setPassed] = useState("Passed ?")
     return (
         <div className="w-full h-screen flex flex-col justify-center items-center">
-            <div className="w-[350px] h-[100px] shadow shadow-blue-200 flex justify-center items-center">
-                <button onClick={
-                    () => {
+            <div className="w-[350px] h-[100px] shadow shadow-blue-200 bg-gray-300 flex justify-center items-center">
 
-                        console.log("- Clicked")
-                        setCount(count - 1)
+                <button onClick=
+                    {
+                        () => {
 
-                    }} className=" mx-[10px] cursor-pointer bg-blue-400 text-white font-bold text-center w-[100px] h-[40px] text-[20px]">
+                            console.log("- Clicked")
+                            setCount(count - 1)
+
+                        }
+                    } className=" mx-[10px] cursor-pointer bg-blue-400 text-white font-bold text-center
+                     w-[100px] h-[40px] text-[20px]">
                     -
                 </button>
 
@@ -34,7 +38,7 @@ export default function TestPage() {
             <div className=" w-[350px] h-[100px] shadow shadow-green-400 flex flex-col justify-center items-center ">
 
                 <span className=" w-full mx-[20px] text-[40px] font-bold cursor-default flex justify-center items-center">
-                  {pass}
+                    {pass}
                 </span>
 
                 <div>
