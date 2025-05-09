@@ -13,7 +13,7 @@ export default function SignupPage() {
 
     async function handleSignup() {
         try {
-            const response = await axios.post("http://localhost:3000/api/users", {
+            const response = await axios.post(import.meta.env.VITE_BACKEND_URL+"/api/users", {
                 email,
                 password,
                 firstName,
@@ -24,7 +24,7 @@ export default function SignupPage() {
             navigate("/login")
 
         } catch (err) {
-            toast.error(err.response?.data?.message || "Signup failed")
+            toast.error(err.response.data.message)
         }
     }
 

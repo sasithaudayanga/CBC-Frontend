@@ -1,70 +1,30 @@
+
 import { useState } from "react"
+import mediaUpload from "../utils/mediaUpload.jsx"
 
 export default function TestPage() {
-    const [count, setCount] = useState(0)
-    const [pass, setPassed] = useState("Passed ?")
+    const [image,setImage] = useState(null)
+
+   function FileUpload(){
+    mediaUpload(image).then(
+        (res) => {
+            console.log(res)
+        }
+    ).catch(
+        (res) => {
+            console.log(res)
+        })
+
+   }
     return (
         <div className="w-full h-screen flex flex-col justify-center items-center">
-            <div className="w-[350px] h-[100px] shadow shadow-blue-200 bg-gray-300 flex justify-center items-center">
-
-                <button onClick=
-                    {
-                        () => {
-
-                            console.log("- Clicked")
-                            setCount(count - 1)
-
-                        }
-                    } className=" mx-[10px] cursor-pointer bg-blue-400 text-white font-bold text-center
-                     w-[100px] h-[40px] text-[20px]">
-                    -
-                </button>
-
-                <span className=" mx-[20px] text-[40px] font-bold cursor-default flex justify-center items-center">
-                    {count}
-                </span>
-
-                <button onClick={
-                    () => {
-
-                        console.log("+ Clicked")
-                        setCount(count + 1)
-
-                    }} className=" mx-[10px] cursor-pointer bg-blue-400 text-white font-bold text-center w-[100px] h-[40px] text-[20px]">
-                    +
-                </button>
-            </div>
-
-            <div className=" w-[350px] h-[100px] shadow shadow-green-400 flex flex-col justify-center items-center ">
-
-                <span className=" w-full mx-[20px] text-[40px] font-bold cursor-default flex justify-center items-center">
-                    {pass}
-                </span>
-
-                <div>
-                    <button onClick={
-                        () => {
-
-                            console.log("Passed")
-                            setPassed("Passed")
-
-                        }} className=" mx-[10px] cursor-pointer bg-blue-400 text-white font-bold text-center w-[100px] h-[40px] text-[20px]">
-                        Passed
-                    </button>
-                    <button onClick={
-                        () => {
-
-                            console.log("Failed")
-                            setPassed("Failed")
-
-                        }} className=" mx-[10px] cursor-pointer bg-blue-400 text-white font-bold text-center w-[100px] h-[40px] text-[20px]">
-                        Failed
-                    </button>
-                </div>
-
-
-
-            </div>
+            <input
+                onChange={(e) => {
+                    setImage(e.target.files[0])
+                    console.log(e.target.files[0])
+                }}
+                type="file" className="file-input file-input-bordered w-full max-w-xs cursor-pointer bg-green-200" />
+            <button onClick={FileUpload} className="bg-red-300">Add Image</button>
         </div>
     )
 }

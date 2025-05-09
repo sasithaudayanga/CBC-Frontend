@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { Link } from "react-router-dom";
 
 
 export default function ProductsPage() {
@@ -18,8 +19,8 @@ export default function ProductsPage() {
 
 
     return (
-        <div className="w-full h-full max-h-full overflow-y-scroll flex flex-col pl-[10px] pr-[50px] mt-[10px]">
-            <table className="w-full text-center">
+        <div className="relative w-full h-full max-h-full overflow-y-scroll flex flex-col pl-[10px] pr-[50px] ">
+            <table className="w-full text-center mt-[10px]">
                 <thead >
                     <tr className="text-center">
                         <th className=" bg-gray-400 border border-white">Product Id</th>
@@ -48,6 +49,8 @@ export default function ProductsPage() {
                     })}
                 </tbody>
             </table>
+            <Link to="/admin/add-product" className="bg-green-700 text-white w-[100px] h-[30px] rounded-[5px] 
+            cursor-pointer absolute text-center bottom-5">Add Product</Link>
 
         </div>
 
