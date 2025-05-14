@@ -5,11 +5,12 @@ import { Toaster } from "react-hot-toast"
 
     
     
-    const url="https://qfhbxjelovjvyftsuynm.supabase.co"
-    const key="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFmaGJ4amVsb3ZqdnlmdHN1eW5tIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY3MTQ2MjEsImV4cCI6MjA2MjI5MDYyMX0.XbBGillpw0wm9ZdlgJ6ctqAHeAN_OF2OABHN_kMW1iw"
+    const url=import.meta.env.VITE_SUPABASE_URL
+    const key=import.meta.env.VITE_SUPABASE_KEY
     const supabase=createClient(url,key)
 
     export default function mediaUpload(file){
+
         const mediaUploadPromise=new Promise(
             (resolve,reject)=>{
                 if(file==null){
@@ -19,8 +20,7 @@ import { Toaster } from "react-hot-toast"
 
                 const timeStamp=new Date().getTime()
                 const newName=timeStamp+file.name
-
-
+                
                 supabase.storage.from("images").upload(newName,file,{
                     upsert:false,
                     cacheControl:"3600"

@@ -1,35 +1,36 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import mediaUpload from "../../utils/mediaUpload.jsx";
 import axios from "axios";
 
-
-export default function AddProductPage() {
-
-    const [productId, setProductId] = useState("")
-    const [productName, setProductName] = useState("")
-    const [altNames, setAltNames] = useState("")
-    const [productDescription, setProductDescription] = useState("")
-    const [images, setImages] = useState([])
-    const [labelledPrice, setLabelledPrice] = useState("")
-    const [price, setPrice] = useState("")
-    const [stock, setStock] = useState("")
+export default function EditProductPage() {
+    const location = useLocation()
+    const [productId, setProductId] = useState(location.state.productId);
+    const [productName, setProductName] = useState(location.state.productName);
+    const [altNames, setAltNames] = useState(location.state.altNames.join(","));
+    const [productDescription, setProductDescription] = useState(location.state.productDescription);
+    const [images, setImages] = useState([]);
+    const [labelledPrice, setLabelledPrice] = useState(location.state.labelledPrice);
+    const [price, setPrice] = useState(location.state.price);
+    const [stock, setStock] = useState(location.state.stock);
     const navigate = useNavigate()
 
+    console.log(location)
 
 
-    async function AddProducts(e) {
+
+
+
+    async function UpdateProducts(e) {
 
         const token = localStorage.getItem("token")
         if (token == null) {
             toast.error("Please login first")
             return
         }
-        if (images.length <= 0) {
-            toast.error("Please select at least one image")
-            return
-        }
+        let imagesUrl = location.state.images
+
         const promisesArray = []
 
         for (let i = 0; i < images.length; i++) {
@@ -37,7 +38,10 @@ export default function AddProductPage() {
         }
         try {
 
-            const imagesUrl = await Promise.all(promisesArray)
+            if (images.length > 0) {
+                imagesUrl = await Promise.all(promisesArray);
+            }
+
             console.log(imagesUrl)
 
             const altNameArray = altNames.split(",")
@@ -54,14 +58,14 @@ export default function AddProductPage() {
             console.log(product)
 
             try {
-                const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/products", product, {
+                const response = await axios.put(import.meta.env.VITE_BACKEND_URL + "/api/products/"+productId, product, {
                     headers: {
                         "Authorization": "Bearer " + token
                     }
                 })
 
                 toast.success(response.data.message)
-                navigate("/admin/add-product")
+                navigate("/admin/products")
 
             } catch (err) {
                 toast.error(err.response.data.message)
@@ -79,13 +83,16 @@ export default function AddProductPage() {
     return (
 
         < div className="w-full h-full flex flex-col justify-center items-center " >
+            <h1 className="text-black font-bold text-2xl">Edit Product</h1>
 
             <input type="text"
+            disabled
                 onChange={
                     (e) => {
                         setProductId(e.target.value)
                     }} placeholder="Product ID"
-                    value={productId}
+
+                value={productId}
                 className="input input-bordered w-full max-w-xs
                 shadow shadow-gray-400 m-[2px]"/>
 
@@ -94,7 +101,7 @@ export default function AddProductPage() {
                     (e) => {
                         setProductName(e.target.value)
                     }} placeholder="Product Name"
-                    value={productName}
+                value={productName}
                 className="input input-bordered w-full max-w-xs
                 shadow shadow-gray-400 m-[2px]"/>
 
@@ -102,8 +109,8 @@ export default function AddProductPage() {
                 onChange={
                     (e) => {
                         setAltNames(e.target.value)
-                    }} 
-                   value={altNames} placeholder="Alter Names"
+                    }} placeholder="Alter Names"
+                value={altNames}
                 className="input input-bordered w-full max-w-xs
                 shadow shadow-gray-400 m-[2px]"/>
 
@@ -112,7 +119,7 @@ export default function AddProductPage() {
                     (e) => {
                         setProductDescription(e.target.value)
                     }}
-                    value={productDescription} placeholder="Product Description"
+                value={productDescription} placeholder="Product Description"
                 className="input input-bordered w-full max-w-xs
                 shadow shadow-gray-400 m-[2px]"/>
 
@@ -120,8 +127,7 @@ export default function AddProductPage() {
                 onChange={
                     (e) => {
                         setImages(e.target.files)
-                    }}
-                     multiple placeholder="Images"
+                    }} multiple placeholder="Images"
                 className="input input-bordered w-full max-w-xs
                 shadow shadow-gray-400 m-[2px]"/>
 
@@ -130,7 +136,7 @@ export default function AddProductPage() {
                 onChange={
                     (e) => {
                         setLabelledPrice(Number(e.target.value))
-                    }}value={labelledPrice} placeholder="Labelled Price"
+                    }} value={labelledPrice} placeholder="Labelled Price"
                 className="input input-bordered w-full max-w-xs
                 shadow shadow-gray-400 m-[2px]"/>
 
@@ -139,7 +145,7 @@ export default function AddProductPage() {
                 onChange={
                     (e) => {
                         setPrice(Number(e.target.value))
-                    }}value={price} placeholder="Price"
+                    }} value={price} placeholder="Price"
                 className="input input-bordered w-full max-w-xs
                 shadow shadow-gray-400 m-[2px]"/>
 
@@ -148,18 +154,18 @@ export default function AddProductPage() {
                 onChange={
                     (e) => {
                         setStock(Number(e.target.value))
-                    }}value={stock} placeholder="Stock"
+                    }} value={stock} placeholder="Stock"
                 className="input input-bordered w-full max-w-xs
                  shadow shadow-gray-400 m-[2px]"/>
 
             <div className="w-full flex justify-center flex-row items-center mt-4 text-center">
                 <Link to="/admin/products"
                     className="w-[90px] bg-red-500 text-white font-bold py-2 rounded mr-4">
-                    Cancel
+                    Return
                 </Link>
-                <button onClick={AddProducts}
+                <button onClick={UpdateProducts}
                     className="cursor-pointer bg-green-500 text-white font-bold py-2 px-4 rounded">
-                    Add Product
+                    Update
                 </button>
             </div>
 
