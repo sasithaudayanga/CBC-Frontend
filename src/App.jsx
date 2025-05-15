@@ -20,14 +20,14 @@ function App() {
     <Toaster position='top-center'/>
       
       <div className='w-full h-screen flex flex-col justify-evenly items-start'>
-        <Header />
+        
         <Routes path="/*">
-          <Route path="/" element={<HomePage />} />
+          
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/admin/*" element={<AdminPage />} />
           <Route path="/testing/*" element={<TestPage />} />
-          <Route path="/*" element={<h1 className='text-red-700 font-bold text-4xl '>404 Not Found</h1>} />
+          <Route path="/*" element={<HomePage />} />
 
         </Routes>
       </div>

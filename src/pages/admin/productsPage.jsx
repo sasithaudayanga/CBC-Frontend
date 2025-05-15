@@ -60,7 +60,14 @@ export default function ProductsPage() {
                 Add Product
             </Link>
 
-            {!isLoading ?
+            {isLoading ?
+            <div className="w-full h-full flex justify-center items-center">
+                <div className="w-[70px] h-[70px] border-[8px] border-t-red-800 rounded-full border-gray-300 animate-spin">
+
+                </div>
+
+            </div>:
+            
                 <table className="w-full text-center mt-[10px]">
                     <thead >
                         <tr className="text-center">
@@ -113,8 +120,7 @@ export default function ProductsPage() {
 
                 </table>
 
-                :
-                <h1>Loading...</h1>
+                
             }
 
 

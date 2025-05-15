@@ -1,9 +1,23 @@
-export default function HomePage(){
-    return(
-        <div className="w-full h-screen flex flex-col justify-evenly items-center ">
-            <h1 className="text-blue-800 font-bold text-4xl text-center">Well come to CRYSTAL BEAUTY CLEAR</h1>
-            <p className="text-blue-700 font-sans font-style-oblique text-1xl text-center">Everything Under One Space</p>
-            <button className="bg-blue-800 rounded-md text-white">Login</button>
+import { Route, Routes } from "react-router-dom";
+import Header from "../components/header.jsx";
+import { HiH1 } from "react-icons/hi2";
+import ClientProductPage from "./admin/client/clientProductPage.jsx";
+
+export default function HomePage() {
+    return (
+        <div className="w-full h-screen flex flex-col items-center ">
+            <Header />
+            <div className="w-full h-[calc(100vh-80px)]  flex flex-col items-center">
+                <Routes path="/*">
+                  <Route path="/" element={<h1>Home</h1>}/>
+                  <Route path="/products" element={<ClientProductPage/>}/>
+                  <Route path="/about" element={<h1>About Us</h1>}/>
+                  <Route path="/contact" element={<h1>Contact</h1>}/>
+                  <Route path="/*" element={<h1>404 Not Found</h1>}/>
+
+                </Routes>
+            </div>
+
 
         </div>
     )
