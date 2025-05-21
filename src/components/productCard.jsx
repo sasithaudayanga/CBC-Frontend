@@ -1,4 +1,5 @@
 import { PiCurrencyCny } from "react-icons/pi"; // You can remove this if unused
+import { Link } from "react-router-dom";
 
 export default function ProductCard({ product }) {
     const formatPrice = (amount) => {
@@ -10,11 +11,11 @@ export default function ProductCard({ product }) {
     };
 
     return (
-        <div className="w-[250px] h-[380px] bg-white shadow rounded-lg m-2 flex flex-col transition-transform hover:scale-105">
+        <Link to={"/overview/"+product.productId} className="w-[250px] h-[380px] bg-white shadow rounded-lg m-2 flex flex-col transition-transform hover:scale-105">
             {/* Image */}
             <div className="w-full h-48 bg-gray-100 flex items-center justify-center">
                 <img
-                    src={product.images?.[0] || "/placeholder.jpg"}
+                    src={product.images[0] }
                     alt={product.productName}
                     className="object-contain h-full"
                 />
@@ -48,7 +49,7 @@ export default function ProductCard({ product }) {
                             <span className="text-sm text-green-700 font-medium">
                                 In stock ({product.stock})
                             </span>
-                            <button className="px-3 py-1.5 bg-blue-600 text-white text-sm font-semibold rounded hover:bg-blue-700 transition">
+                            <button className="px-3 py-1.5 bg-blue-500 text-white text-sm font-semibold rounded hover:bg-blue-700 transition-transform hover:scale-105">
                                 Buy Now
                             </button>
                         </>
@@ -59,6 +60,6 @@ export default function ProductCard({ product }) {
                     )}
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }
