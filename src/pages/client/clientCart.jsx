@@ -1,0 +1,55 @@
+import { useState } from "react"
+import { addCart, getCart, removeFromCart } from "../../utils/cart"
+import { BiMinus, BiMinusCircle, BiPlus, BiPlusCircle } from "react-icons/bi"
+import { BsPlus, BsPlusCircleDotted } from "react-icons/bs"
+import { VscTrash } from "react-icons/vsc"
+
+
+export default function ClientCartPage() {
+    const [cart, setCart] = useState(getCart())
+
+    return (
+        <div className="w-full h-full flex flex-col items-center pt-4">
+            {
+                cart.map(
+                    (item, productId) => {
+                        return (
+                            <div key={productId} className="relative justify-center items-center w-[600px] h-[100px] bg-primary shadow-2xl flex  mt-2 rounded-bl-3xl rounded-tl-3xl">
+                                <img src={item.image} className="w-[100px] h-[100px] object-cover rounded-3xl" />
+                                <div className="w-[250px] h-full flex flex-col justify-center items-start pl-4">
+                                    <h1 className="text-[15px] text-gray-600 font-semibold">{item.name}</h1>
+                                    <h1 className="text-[10px] text-gray-600 font-semibold">{item.productId}</h1>
+                                    {
+                                        item.labelledPrice > item.price ?
+                                        <div  className="flex justify-center items-start">
+                                            <span className="text-[18px] text-gray-500 font-semibold line-through mx-4">{item.labelledPrice.toFixed(2)}</span>
+                                            <span className="text-[18px] text-green-600  mx-4 font-bold">{item.price.toFixed(2)}</span>
+
+                                        </div>
+                                        :<span className="text-[18px] text-green-600  mx-4 font-bold"> {(item.price ?? 0).toFixed(2)}</span>
+                                    }
+
+                                </div>
+                                <div className="w-[100px] h-full flex flex-row justify-between items-center ">
+                                    <button className="aspect-square rounded-2xl bg-secondary text-white font-bold hover:bg-secondary/50 cursor-pointer text-[30px]"><BsPlus/></button>
+                                    <h1 className="text-xl h-full text-secondary font-semibold flex items-center">{item.qty}</h1>
+                                    <button className="text-white rounded-2xl bg-secondary aspect-square font-bold hover:bg-secondary/50 cursor-pointer text-[30px]"><BiMinus/></button>
+
+                                </div>
+                                <div className="w-[150px] h-full flex flex-col justify-center items-center">
+                                    <h1 className="text-[15px] text-green-600">Total: LKR {(item.price*item.qty).toFixed(2)}</h1>
+
+                                </div>
+                                <button className="absolute rounded-full p-1 right-[-30px] text-red-600 hover:text-white hover:bg-red-600  cursor-pointer">
+                                    <VscTrash/>
+                                </button>
+
+                            </div>
+                        )
+
+                    }
+                )
+            }
+        </div>
+    )
+}

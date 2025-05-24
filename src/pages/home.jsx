@@ -3,6 +3,7 @@ import Header from "../components/header.jsx";
 import { HiH1 } from "react-icons/hi2";
 import ClientProductPage from "./client/clientProductPage.jsx";
 import ProductOverviewPage from "./client/productOverview.jsx";
+import ClientCartPage from "./client/clientCart.jsx";
 
 
 export default function HomePage() {
@@ -16,7 +17,8 @@ export default function HomePage() {
                   <Route path="/about" element={<h1>About Us</h1>}/>
                   <Route path="/contact" element={<h1>Contact</h1>}/>
                   <Route path="/*" element={<h1>404 Not Found</h1>}/>
-                 <Route path="/overview/:id" element={<ProductOverviewPage/>}/>
+                  <Route path="/cart" element={<ClientCartPage/>}/>
+                  <Route path="/overview/:id" element={<ProductOverviewPage/>}/>
                 </Routes>
             </div>
 
