@@ -5,170 +5,235 @@ import mediaUpload from "../../utils/mediaUpload.jsx";
 import axios from "axios";
 
 export default function EditProductPage() {
-    const location = useLocation()
-    const [productId, setProductId] = useState(location.state.productId);
-    const [productName, setProductName] = useState(location.state.productName);
-    const [altNames, setAltNames] = useState(location.state.altNames.join(","));
-    const [productDescription, setProductDescription] = useState(location.state.productDescription);
-    const [images, setImages] = useState([]);
-    const [labelledPrice, setLabelledPrice] = useState(location.state.labelledPrice);
-    const [price, setPrice] = useState(location.state.price);
-    const [stock, setStock] = useState(location.state.stock);
-    const navigate = useNavigate()
+  const location = useLocation();
+  const [productId] = useState(location.state.productId); 
+  const [productName, setProductName] = useState(location.state.productName);
+  const [altNames, setAltNames] = useState(location.state.altNames.join(","));
+  const [productDescription, setProductDescription] = useState(location.state.productDescription);
+  const [images, setImages] = useState([]);
+  const [labelledPrice, setLabelledPrice] = useState(location.state.labelledPrice);
+  const [price, setPrice] = useState(location.state.price);
+  const [stock, setStock] = useState(location.state.stock);
+  const navigate = useNavigate();
 
-    console.log(location)
+  async function UpdateProducts(e) {
+    e.preventDefault();
 
-
-
-
-
-    async function UpdateProducts(e) {
-
-        const token = localStorage.getItem("token")
-        if (token == null) {
-            toast.error("Please login first")
-            return
-        }
-        let imagesUrl = location.state.images
-
-        const promisesArray = []
-
-        for (let i = 0; i < images.length; i++) {
-            promisesArray[i] = mediaUpload(images[i])
-        }
-        try {
-
-            if (images.length > 0) {
-                imagesUrl = await Promise.all(promisesArray);
-            }
-
-            console.log(imagesUrl)
-
-            const altNameArray = altNames.split(",")
-            const product = {
-                productId: productId,
-                productName: productName,
-                altNames: altNames,
-                productDescription: productDescription,
-                images: imagesUrl,
-                labelledPrice: labelledPrice,
-                price: price,
-                stock: stock
-            }
-            console.log(product)
-
-            try {
-                const response = await axios.put(import.meta.env.VITE_BACKEND_URL + "/api/products/"+productId, product, {
-                    headers: {
-                        "Authorization": "Bearer " + token
-                    }
-                })
-
-                toast.success(response.data.message)
-                navigate("/admin/products")
-
-            } catch (err) {
-                toast.error(err.response.data.message)
-            }
-
-
-        } catch (e) {
-            console.log(e)
-        }
-
-
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Please login first");
+      return;
     }
 
+    let imagesUrl = location.state.images;
+    const promisesArray = [];
 
-    return (
+    for (let i = 0; i < images.length; i++) {
+      promisesArray[i] = mediaUpload(images[i]);
+    }
 
-        < div className="w-full h-full flex flex-col justify-center items-center " >
-            <h1 className="text-black font-bold text-2xl">Edit Product</h1>
+    try {
+      if (images.length > 0) {
+        imagesUrl = await Promise.all(promisesArray);
+      }
 
-            <input type="text"
-            disabled
-                onChange={
-                    (e) => {
-                        setProductId(e.target.value)
-                    }} placeholder="Product ID"
+      const altNameArray = altNames.split(",").map(name => name.trim());
 
-                value={productId}
-                className="input input-bordered w-full max-w-xs
-                shadow shadow-gray-400 m-[2px]"/>
+      const product = {
+        productId,
+        productName,
+        altNames: altNameArray,
+        productDescription,
+        images: imagesUrl,
+        labelledPrice,
+        price,
+        stock,
+      };
 
-            <input type="text"
-                onChange={
-                    (e) => {
-                        setProductName(e.target.value)
-                    }} placeholder="Product Name"
-                value={productName}
-                className="input input-bordered w-full max-w-xs
-                shadow shadow-gray-400 m-[2px]"/>
+      const response = await axios.put(import.meta.env.VITE_BACKEND_URL + "/api/products/" + productId,product,
+        {headers: { Authorization: "Bearer " + token },}
+      );
 
-            <input type="text"
-                onChange={
-                    (e) => {
-                        setAltNames(e.target.value)
-                    }} placeholder="Alter Names"
-                value={altNames}
-                className="input input-bordered w-full max-w-xs
-                shadow shadow-gray-400 m-[2px]"/>
+      toast.success(response.data.message);
+      navigate("/admin/products");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Failed to update product");
+    }
+  }
 
-            <input type="text"
-                onChange={
-                    (e) => {
-                        setProductDescription(e.target.value)
-                    }}
-                value={productDescription} placeholder="Product Description"
-                className="input input-bordered w-full max-w-xs
-                shadow shadow-gray-400 m-[2px]"/>
+  return (
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
+        <h2 className="bg-green-800 rounded-md text-2xl font-extrabold text-white mb-6 text-center">
+          Edit Product
+        </h2>
 
-            <input type="file"
-                onChange={
-                    (e) => {
-                        setImages(e.target.files)
-                    }} multiple placeholder="Images"
-                className="input input-bordered w-full max-w-xs
-                shadow shadow-gray-400 m-[2px]"/>
+        <form onSubmit={UpdateProducts} className="space-y-5">
+          {/* Product ID - disabled */}
+          <div>
+            <label
+              htmlFor="productId"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Product ID
+            </label>
+            <input
+              id="productId"
+              type="text"
+              value={productId}
+              disabled
+              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-100 text-gray-500 cursor-not-allowed"
+            />
+          </div>
 
+          {/* Product Name */}
+          <div>
+            <label
+              htmlFor="productName"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Product Name
+            </label>
+            <input
+              id="productName"
+              type="text"
+              value={productName}
+              onChange={(e) => setProductName(e.target.value)}
+              placeholder="Product Name"
+              required
+              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
+            />
+          </div>
 
-            <input type="number"
-                onChange={
-                    (e) => {
-                        setLabelledPrice(Number(e.target.value))
-                    }} value={labelledPrice} placeholder="Labelled Price"
-                className="input input-bordered w-full max-w-xs
-                shadow shadow-gray-400 m-[2px]"/>
+          {/* Alternative Names */}
+          <div>
+            <label
+              htmlFor="altNames"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Alternative Names (comma separated)
+            </label>
+            <input
+              id="altNames"
+              type="text"
+              value={altNames}
+              onChange={(e) => setAltNames(e.target.value)}
+              placeholder="e.g., Alt Name 1, Alt Name 2"
+              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
+            />
+          </div>
 
+          {/* Product Description */}
+          <div>
+            <label
+              htmlFor="productDescription"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Product Description
+            </label>
+            <textarea
+              id="productDescription"
+              value={productDescription}
+              onChange={(e) => setProductDescription(e.target.value)}
+              placeholder="Describe your product..."
+              rows={3}
+              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 resize-none focus:outline-none focus:ring-green-500 focus:border-green-500"
+            />
+          </div>
 
-            <input type="number"
-                onChange={
-                    (e) => {
-                        setPrice(Number(e.target.value))
-                    }} value={price} placeholder="Price"
-                className="input input-bordered w-full max-w-xs
-                shadow shadow-gray-400 m-[2px]"/>
+          {/* Images */}
+          <div>
+            <label
+              htmlFor="images"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Upload New Images (optional)
+            </label>
+            <input
+              id="images"
+              type="file"
+              multiple
+              onChange={(e) => setImages(e.target.files)}
+              className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-green-100 file:text-green-700 hover:file:bg-green-200 cursor-pointer"
+              accept="image/*"
+            />
+          </div>
 
-
-            <input type="number"
-                onChange={
-                    (e) => {
-                        setStock(Number(e.target.value))
-                    }} value={stock} placeholder="Stock"
-                className="input input-bordered w-full max-w-xs
-                 shadow shadow-gray-400 m-[2px]"/>
-
-            <div className="w-full flex justify-center flex-row items-center mt-4 text-center">
-                <Link to="/admin/products"
-                    className="w-[90px] bg-red-500 text-white font-bold py-2 rounded mr-4">
-                    Return
-                </Link>
-                <button onClick={UpdateProducts}
-                    className="cursor-pointer bg-green-500 text-white font-bold py-2 px-4 rounded">
-                    Update
-                </button>
+          {/* Prices and Stock Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label
+                htmlFor="labelledPrice"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Labelled Price
+              </label>
+              <input
+                id="labelledPrice"
+                type="number"
+                min="0"
+                value={labelledPrice}
+                onChange={(e) => setLabelledPrice(Number(e.target.value))}
+                placeholder="Labelled Price"
+                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
+              />
             </div>
 
-        </div >
-    )
+            <div>
+              <label
+                htmlFor="price"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Price
+              </label>
+              <input
+                id="price"
+                type="number"
+                min="0"
+                value={price}
+                onChange={(e) => setPrice(Number(e.target.value))}
+                placeholder="Price"
+                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="stock"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Stock
+              </label>
+              <input
+                id="stock"
+                type="number"
+                min="0"
+                value={stock}
+                onChange={(e) => setStock(Number(e.target.value))}
+                placeholder="Stock"
+                className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-green-500 focus:border-green-500"
+              />
+            </div>
+          </div>
+
+          {/* Buttons */}
+          <div className="flex justify-between mt-6">
+            <Link
+              to="/admin/products"
+              className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition"
+            >
+              Cancel
+            </Link>
+
+            <button
+              type="submit"
+              className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition"
+            >
+              Update Product
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }

@@ -1,91 +1,68 @@
-import axios from "axios"
-import { useState } from "react"
-import toast from "react-hot-toast"
-import { useNavigate } from "react-router-dom"
+import axios from "axios";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
-
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const navigate=useNavigate()
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     async function handleLogin() {
-
         try {
-            const response = await axios.post(import.meta.env.VITE_BACKEND_URL+"/api/users/login", {
-                email: email,
-                password: password
-            })
+            const response = await axios.post(
+                import.meta.env.VITE_BACKEND_URL + "/api/users/login",
+                { email, password }
+            );
 
-            toast.success(response.data.message)
-            localStorage.setItem("token",response.data.token)
-            const token=localStorage.getItem("token")
+            toast.success(response.data.message);
+            localStorage.setItem("token", response.data.token);
 
-            if(response.data.role==="admin"){
-                navigate("/admin")
-
-            }else{
-                navigate("/")
-
+            if (response.data.role === "admin") {
+                navigate("/admin");
+            } else {
+                navigate("/");
             }
-            
-
         } catch (err) {
-            toast.error(err.response.data.message)
+            toast.error(err.response?.data?.message || "Login failed");
         }
-
     }
 
     return (
-        <div className="w-full  bg-[url('/loginbg.jpg')] bg-center bg-cover h-screen flex justify-evenly items-center ">
-            <div className="w-[50%] h-full ">
-
-            </div>
+        <div className="w-full bg-[url('/loginbg.jpg')] bg-center bg-cover h-screen flex justify-evenly items-center">
+            <div className="w-[50%] h-full"></div>
 
             <div className="w-[50%] h-full flex justify-center items-center">
-                <div className="w-[350px] h-[500px] rounded-4xl backdrop-blur-md shadow-2xl flex flex-col justify-center items-center">
-                    
-                    <div className=" w-[100px] h-[100px] rounded-full shadow shadow-white mb-0 flex flex-col justify-center items-center bg-[url('/userlog.png')] bg-origin-border bg-center">
+                <div className="w-[350px] h-[500px] rounded-3xl backdrop-blur-md shadow-2xl border border-white/30 bg-white/10 flex flex-col justify-center items-center px-4 py-6 transition-all">
+                    {/* User Image */}
+                    <div className="w-[100px] h-[100px] rounded-full shadow-lg shadow-white/40 mb-2 bg-[url('/userlog.png')] bg-center bg-cover border-2 border-white/40"></div>
 
-                    </div>
-
-                    <div className="w-[350px] h-[300px] flex flex-col justify-center items-center mt-0">
+                    {/* Input Fields */}
+                    <div className="w-full flex flex-col items-center mt-2 space-y-4">
                         <input
-                            onChange={
-                                (e) => {
-                                   
-                                    setEmail(e.target.value)
-                                }}
+                            onChange={(e) => setEmail(e.target.value)}
                             value={email}
-                            placeholder="Email" className="my-[10px] w-[300px] h-[50px] 
-                     border border-[#c3efe9] rounded-2xl"
+                            placeholder="Email"
+                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
                         />
 
                         <input
-                            onChange={
-                                (e) => {
-                                   
-                                    setPassword(e.target.value)
-                                }}
+                            onChange={(e) => setPassword(e.target.value)}
                             value={password}
-                            placeholder="Password" className="my-[10px] w-[300px] h-[50px] border
-                      border-[#c3efe9]  rounded-2xl" type="password"
+                            type="password"
+                            placeholder="Password"
+                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
                         />
 
                         <button
                             onClick={handleLogin}
-                            className="cursor-pointer my-[10px] w-[300px] h-[50px] 
-                    border border-[#c3efe9] rounded-2xl font-bold
-                     text-white text-[25px]">
-                            LogIn
+                            className="w-[280px] h-[45px] rounded-xl bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white font-semibold text-lg transition-all shadow-lg"
+                        >
+                            Log In
                         </button>
-
                     </div>
-
-
                 </div>
-
             </div>
         </div>
-    )
+    );
 }

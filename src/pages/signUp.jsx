@@ -1,65 +1,62 @@
-import axios from "axios"
-import { useState } from "react"
-import toast from "react-hot-toast"
-import { useNavigate } from "react-router-dom"
+import axios from "axios";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function SignupPage() {
-
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
-    const navigate = useNavigate()
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const navigate = useNavigate();
 
     async function handleSignup() {
         try {
-            const response = await axios.post(import.meta.env.VITE_BACKEND_URL+"/api/users", {
+            const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/users", {
                 email,
                 password,
                 firstName,
                 lastName
-            })
+            });
 
-            toast.success(response.data.message)
-            navigate("/login")
-
+            toast.success(response.data.message);
+            navigate("/login");
         } catch (err) {
-            toast.error(err.response.data.message)
+            toast.error(err.response?.data?.message || "Signup failed");
         }
     }
 
     return (
         <div className="w-full bg-[url('/loginbg.jpg')] bg-center bg-cover h-screen flex justify-evenly items-center">
-            <div className="w-[50%] h-full bg-white">
-            </div>
+            <div className="w-[50%] h-full bg-white opacity-0"></div>
 
             <div className="w-[50%] h-full flex justify-center items-center">
-                <div className="w-[350px] h-[500px] rounded-4xl backdrop-blur-md shadow-2xl flex flex-col justify-center items-center">
+                <div className="w-[350px] h-[550px] rounded-3xl backdrop-blur-md bg-white/10 border border-white/30 shadow-2xl px-4 py-6 flex flex-col justify-center items-center transition-all">
                     
-                    <div className="w-[100px] h-[100px] rounded-full shadow shadow-white mb-0 flex flex-col justify-center items-center bg-[url('/userlog.png')] bg-origin-border bg-center">
-                    </div>
+                    {/* User Avatar */}
+                    <div className="w-[100px] h-[100px] rounded-full shadow-lg shadow-white/30 mb-3 bg-[url('/userlog.png')] bg-center bg-cover border-2 border-white/30"></div>
 
-                    <div className="w-[350px] h-[300px] flex flex-col justify-center items-center mt-0">
-
+                    {/* Signup Form */}
+                    <div className="w-full flex flex-col items-center space-y-4 mt-2">
                         <input
                             onChange={(e) => setFirstName(e.target.value)}
                             value={firstName}
                             placeholder="First Name"
-                            className="my-[10px] w-[300px] h-[50px] border border-[#c3efe9] rounded-2xl"
+                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
                         />
 
                         <input
                             onChange={(e) => setLastName(e.target.value)}
                             value={lastName}
                             placeholder="Last Name"
-                            className="my-[10px] w-[300px] h-[50px] border border-[#c3efe9] rounded-2xl"
+                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
                         />
 
                         <input
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
                             placeholder="Email"
-                            className="my-[10px] w-[300px] h-[50px] border border-[#c3efe9] rounded-2xl"
+                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
                         />
 
                         <input
@@ -67,18 +64,18 @@ export default function SignupPage() {
                             value={password}
                             type="password"
                             placeholder="Password"
-                            className="my-[10px] w-[300px] h-[50px] border border-[#c3efe9] rounded-2xl"
+                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
                         />
 
                         <button
                             onClick={handleSignup}
-                            className="cursor-pointer my-[10px] w-[300px] h-[50px] border border-[#c3efe9] rounded-2xl font-bold text-white text-[25px]">
+                            className="w-[280px] h-[45px] rounded-xl bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white font-semibold text-lg transition-all shadow-lg"
+                        >
                             Sign Up
                         </button>
                     </div>
-
                 </div>
             </div>
         </div>
-    )
+    );
 }

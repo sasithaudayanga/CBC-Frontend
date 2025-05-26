@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import ImageSlider from "../../components/imageSlider"
 import Loading from "../../components/loading"
 import { addCart, getCart } from "../../utils/cart"
@@ -11,6 +11,7 @@ export default function ProductOverviewPage() {
     const productId = params.id
     const [status, setStatus] = useState("loading") //loading,success,error
     const [product, setProduct] = useState(null)
+    const navigate=useNavigate()
 
     useEffect(
         () => {
@@ -66,21 +67,33 @@ export default function ProductOverviewPage() {
                                 </span>
                             </div>
                             <div className="w-full flex justify-center items-center mt-4">
-                                <button className="w-[200px] h-[50px] bg-[#67AE6E] rounded-2xl
+                                <button onClick={(e) => {
+                                    
+                                    navigate("/checkout", {
+                                        state: {
+                                            cart: [
+                                                {
+                                                    productId: product.productId,
+                                                    name: product.productName,
+                                                    image: product.images[0],
+                                                    price: product.price,
+                                                    labelledPrice: product.labelledPrice,
+                                                    qty: 1, 
+                                                },
+                                            ],
+                                        },
+                                    });
+                                }} className="w-[200px] h-[50px] bg-[#67AE6E] rounded-2xl
                                  text-white font-bold mx-3 text-[17px] cursor-pointer hover:bg-[#328E6E] transition-all duration-300">
                                     Buy Now
                                 </button>
-                                <button onClick={()=>{
-                                    console.log("Old Cart")
-                                    console.log(getCart())
-                                    addCart(product,1)
-                                    console.log("new Cart")
-                                    console.log(getCart())
+                                <button onClick={() => {
+                                    addCart(product, 1)
                                 }} className="w-[200px] h-[50px] bg-[#578FCA] rounded-2xl
                                  text-white font-bold mx-3 text-[17px] cursor-pointer hover:bg-[#3674B5] transition-all duration-300">
                                     Add to Cart
                                 </button>
-                                
+
 
                             </div>
 
