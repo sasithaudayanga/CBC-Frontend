@@ -11,7 +11,7 @@ export default function UserEditPage() {
     const [firstName, setFirstname] = useState(location.state.firstName);
     const [lastName, setLastname] = useState(location.state.lastName);
     const [role, setRole] = useState(location.state.role);
-    const [isBlocked, setIsBlocked] = useState(location.state.isBlocked);
+    const [isBlocked, setIsBlocked] = useState(Boolean(location.state.isBlocked));
     const [id] = useState(location.state._id);
 
     async function Updateuser(e) {
@@ -45,86 +45,96 @@ export default function UserEditPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center py-10 px-4">
+        <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center px-4 py-12">
             <form
                 onSubmit={Updateuser}
-                className="w-full max-w-lg bg-white shadow-xl rounded-xl p-10 space-y-6"
+                className="w-full max-w-3xl bg-white shadow-2xl rounded-2xl p-10 space-y-8 transition-all duration-300"
             >
-                <h2 className="text-3xl font-bold text-center text-gray-800">Edit User</h2>
-
-                <div>
-                    <label className="text-gray-600 font-medium">User ID :{" "+id} </label>
-                    
+                <div className="text-center">
+                    <h2 className="text-4xl font-bold text-gray-800 mb-2">Edit User</h2>
+                    <p className="text-gray-500">Update the user details below</p>
                 </div>
 
-                <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                    <input
-                        id="firstName"
-                        type="text"
-                        value={firstName}
-                        onChange={(e) => setFirstname(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required
-                    />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label htmlFor="firstName" className="block text-sm font-semibold text-gray-700 mb-1">
+                            First Name
+                        </label>
+                        <input
+                            id="firstName"
+                            type="text"
+                            value={firstName}
+                            onChange={(e) => setFirstname(e.target.value)}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="lastName" className="block text-sm font-semibold text-gray-700 mb-1">
+                            Last Name
+                        </label>
+                        <input
+                            id="lastName"
+                            type="text"
+                            value={lastName}
+                            onChange={(e) => setLastname(e.target.value)}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required
+                        />
+                    </div>
+
+                    <div className="md:col-span-2">
+                        <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1">
+                            Email
+                        </label>
+                        <input
+                            id="email"
+                            type="text"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed"
+                            readOnly
+                        />
+                    </div>
+
+                    <div>
+                        <label htmlFor="role" className="block text-sm font-semibold text-gray-700 mb-1">
+                            Role
+                        </label>
+                        <select
+                            id="role"
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="admin">Admin</option>
+                            <option value="customer">Customer</option>
+                        </select>
+                    </div>
+
+                    <div className="flex items-center pt-2">
+                        <input
+                            type="checkbox"
+                            id="isBlocked"
+                            checked={isBlocked}
+                            onChange={(e) => setIsBlocked(e.target.checked)}
+                            className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                        />
+                        <label htmlFor="isBlocked" className="ml-3 text-sm font-medium text-gray-700">
+                            Blocked
+                        </label>
+                    </div>
                 </div>
 
-                <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                    <input
-                        id="lastName"
-                        type="text"
-                        value={lastName}
-                        onChange={(e) => setLastname(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input
-                        id="email"
-                        type="text"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-600 cursor-not-allowed"
-                        readOnly
-                    />
-                </div>
-
-                <div>
-                    <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">Role</label>
-                    <select
-                        id="role"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                <div className="pt-4 border-t border-gray-200">
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold py-3 rounded-lg transition duration-300 shadow-md"
                     >
-                        <option value="admin">Admin</option>
-                        <option value="customer">Customer</option>
-                    </select>
+                        Update User
+                    </button>
                 </div>
-
-                <div>
-                    <label htmlFor="isBlocked" className="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                    <select
-                        id="isBlocked"
-                        value={isBlocked.toString()}
-                        onChange={(e) => setIsBlocked(e.target.value === "true")}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                        <option value="false">Active</option>
-                        <option value="true">Blocked</option>
-                    </select>
-                </div>
-
-                <button
-                    type="submit"
-                    className="w-full bg-green-600 hover:bg-green-700 text-white text-lg font-semibold py-3 rounded-lg transition duration-200"
-                >
-                    Update User
-                </button>
             </form>
         </div>
     );

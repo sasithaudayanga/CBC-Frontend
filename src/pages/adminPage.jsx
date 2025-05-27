@@ -7,6 +7,7 @@ import AddProductPage from "./admin/addProductPage";
 import EditProductPage from "./admin/editProductPage";
 import Header from "../components/header.jsx";
 import UserEditPage from "./admin/userEditPage.jsx";
+import SignupPage from "./signUp.jsx";
 
 export default function AdminPage() {
   const location = useLocation();
@@ -48,6 +49,7 @@ export default function AdminPage() {
             <Route path="/review" element={<ReviewsPage />} />
             <Route path="/add-product" element={<AddProductPage />} />
             <Route path="/user-edit" element={<UserEditPage />} />
+             <Route path="/signup" element={<SignupPage />} />
             <Route path="/edit-product" element={<EditProductPage />} />
           </Routes>
         </div>
