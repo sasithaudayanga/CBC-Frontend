@@ -81,15 +81,15 @@ export default function UsersPage() {
                                 {user.map((item, index) => (
                                     <tr
                                         key={index}
-                                        className="hover:bg-gray-100 transition-all duration-150"
+                                        className="hover:bg-gray-200 transition-all duration-150"
                                     >
-                                        <td className="px-4 py-2 border border-white bg-gray-200">{item.firstName + " " + item.lastName}</td>
-                                        <td className="px-4 py-2 border border-white bg-gray-200">{item.email}</td>
-                                        <td className="px-4 py-2 border border-white bg-gray-200 text-center">{item.role}</td>
-                                        <td className="px-4 py-2 border border-white bg-gray-200 text-center">
+                                        <td className="px-4 py-2 border border-white shadow">{item.firstName + " " + item.lastName}</td>
+                                        <td className="px-4 py-2 border border-white shadow">{item.email}</td>
+                                        <td className="px-4 py-2 border border-white shadow text-center">{item.role}</td>
+                                        <td className="px-4 py-2 border border-white shadow text-center">
                                             {item.isBlocked ? "Blocked" : "Active"}
                                         </td>
-                                        <td className="px-4 py-2 border border-white bg-gray-200 text-center">
+                                        <td className="px-4 py-2 border border-white shadow text-center">
                                             <div className="flex items-center justify-center space-x-4">
                                                 <div className="relative group">
                                                     <VscTrash onClick={() => { deleteUser(item._id) }} className="text-red-600 text-lg cursor-pointer hover:scale-110 transition" />

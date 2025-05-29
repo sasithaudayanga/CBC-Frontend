@@ -40,6 +40,8 @@ export default function ProductsPage() {
 
     return (
         <div className="relative w-full h-full max-h-full overflow-y-auto flex flex-col px-4 py-6 bg-gray-50">
+
+
             {/* Add Product Button */}
             <div className="flex justify-end mb-4">
                 <Link
@@ -79,27 +81,27 @@ export default function ProductsPage() {
                                 {products.map((item, index) => (
                                     <tr
                                         key={index}
-                                        className="hover:bg-gray-100 transition-all duration-150"
+                                        className="hover:bg-gray-200 transition-all duration-150"
                                     >
-                                        <td className="px-4 py-2 border border-white bg-gray-200">{item.productId}</td>
-                                        <td className="px-4 py-2 border border-white bg-gray-200">{item.productName}</td>
-                                        <td className="px-4 py-2 border border-white bg-gray-200 text-center">
+                                        <td className="px-4 py-2 border border-white shadow">{item.productId}</td>
+                                        <td className="px-4 py-2 border border-white shadow">{item.productName}</td>
+                                        <td className="px-4 py-2 border border-white shadow text-center">
                                             <img
                                                 src={item.images[0]}
                                                 alt={item.productName}
                                                 className="w-12 h-12 object-cover rounded"
                                             />
                                         </td>
-                                        <td className="px-4 py-2 border border-white bg-gray-200 text-right">
+                                        <td className="px-4 py-2 border border-white shadow text-right">
                                             LKR {item.labelledPrice.toFixed(2)}
                                         </td>
-                                        <td className="px-4 py-2 border border-white bg-gray-200 text-right">
+                                        <td className="px-4 py-2 border border-white shadow text-right">
                                             LKR {item.price.toFixed(2)}
                                         </td>
-                                        <td className="px-4 py-2 border border-white bg-gray-200 text-right">
+                                        <td className="px-4 py-2 border border-white shadow text-right">
                                             {item.stock}
                                         </td>
-                                        <td className="px-4 py-2 border border-white bg-gray-200 text-center">
+                                        <td className="px-4 py-2 border border-white shadow text-center">
                                             <div className="flex items-center justify-center space-x-4">
                                                 <div className="relative group">
                                                     <VscTrash
@@ -135,7 +137,8 @@ export default function ProductsPage() {
                         </table>
                     </div>
                 </div>
-            )}
+            )
+            }
         </div>
     );
 }

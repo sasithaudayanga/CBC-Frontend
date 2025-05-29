@@ -15,9 +15,55 @@ export default function AddProductPage() {
   const [stock, setStock] = useState("");
   const navigate = useNavigate();
 
-  async function AddProducts(e) {
-    // your existing function unchanged
-  }
+  async function AddProduct() {
+
+        const token = localStorage.getItem("token")
+        if(token == null){
+            toast.error("Please login first")
+            return
+        }
+
+		if (images.length <= 0) {
+			toast.error("Please select at least one image");
+			return;
+		}
+
+		const promisesArray = [];
+
+		for (let i = 0; i < images.length; i++) {
+			promisesArray[i] = mediaUpload(images[i]);
+		}
+		try {
+			const imageUrls = await Promise.all(promisesArray);
+			console.log(imageUrls);
+
+            const altNamesArray = altNames.split(",")
+
+            const product = {
+                productId : productId,
+                productName : productName,
+                altNames : altNamesArray,
+                productDescription : productDescription,
+                images : imageUrls,
+                labelledPrice : labelledPrice,
+                price : price,
+                stock : stock,
+            }
+            axios.post(import.meta.env.VITE_BACKEND_URL + "/api/products", product , {
+                headers : {
+                    "Authorization" : "Bearer "+token
+                }
+            }).then(() => {
+                toast.success("Product added successfully")
+                navigate("/admin/products")
+            }).catch((e) => {
+                toast.error(e.response.data.message)
+            })
+
+		} catch (e) {
+			console.log(e);
+		}
+	}
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -30,7 +76,7 @@ export default function AddProductPage() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            AddProducts();
+            AddProduct();
           }}
           className="space-y-5"
         >
@@ -194,6 +240,7 @@ export default function AddProductPage() {
             </Link>
 
             <button
+            
               type="submit"
               className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition"
             >

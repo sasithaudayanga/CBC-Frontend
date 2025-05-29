@@ -73,16 +73,16 @@ export default function ReviewsPage() {
                         </thead>
                         <tbody>
                             {review.map((item, index) => (
-                                <tr key={index} className="hover:bg-gray-100 transition-all duration-150">
-                                    <td className="px-4 py-2 border border-white bg-gray-200">{item.productId}</td>
-                                    <td className="px-4 py-2 border border-white bg-gray-200">{item.productName}</td>
-                                    <td className="px-4 py-2 border border-white bg-gray-200">{item.userName || "N/A"}</td>
-                                    <td className="px-4 py-2 border border-white bg-gray-200">{item.comment}</td>
-                                    <td className="px-4 py-2 border border-white bg-gray-200 text-center">{item.rating}</td>
-                                    <td className="px-4 py-2 border border-white bg-gray-200 text-center">
+                                <tr key={index} className="hover:bg-gray-200 transition-all duration-150">
+                                    <td className="px-4 py-2 border border-white shadow">{item.productId}</td>
+                                    <td className="px-4 py-2 border border-white shadow">{item.productName}</td>
+                                    <td className="px-4 py-2 border border-white shadow">{item.userName || "N/A"}</td>
+                                    <td className="px-4 py-2 border border-white shadow">{item.comment}</td>
+                                    <td className="px-4 py-2 border border-white shadow text-center">{item.rating}</td>
+                                    <td className="px-4 py-2 border border-white shadow text-center">
                                         {new Date(item.createdAt).toLocaleDateString()}
                                     </td>
-                                    <td className="px-4 py-2 border border-white bg-gray-200 text-center">
+                                    <td className="px-4 py-2 border border-white shadow text-center">
                                         <div className="flex items-center justify-center space-x-4">
                                             <div className="relative group">
                                                 <VscTrash
