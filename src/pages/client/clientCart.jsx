@@ -15,7 +15,7 @@ export default function ClientCartPage() {
                 <p className="text-2xl text-secondary font-bold">Total: LKR <span>{getTotal().toFixed(2)}</span></p>
                 <Link to="/checkout" state={
                     {cart:cart}
-                } className="w-[150px] text-center text-[20px] text-white bg-green-600 font-semiboldbold ursor-pointer rounded-lg hover:bg-red-700 transition-all duration-300">
+                } className="w-[150px] text-center text-[20px] text-white bg-green-600 font-semiboldbold ursor-pointer rounded-lg hover:bg-green-700 hover:scale-105 transition">
                 Checkout
                 </Link>
 

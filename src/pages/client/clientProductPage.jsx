@@ -13,7 +13,7 @@ export default function ClientProductPage(){
         ()=>{
             if(isLoading==true){
                 axios.get(import.meta.env.VITE_BACKEND_URL + "/api/products").then((res) => {
-                    console.log(res.data);
+                    
                     setProducts(res.data);
                     setIsLoading(false);
                 })

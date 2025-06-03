@@ -19,7 +19,7 @@ export default function LoginPage() {
             localStorage.setItem("token", response.data.token);
 
             if (response.data.role === "admin") {
-                navigate("/admin");
+                navigate("/admin/products");
             } else {
                 navigate("/");
             }
@@ -35,7 +35,7 @@ export default function LoginPage() {
             <div className="w-[50%] h-full flex justify-center items-center">
                 <div className="w-[350px] h-[500px] rounded-3xl backdrop-blur-md shadow-2xl border border-white/30 bg-white/10 flex flex-col justify-center items-center px-4 py-6 transition-all">
                     {/* User Image */}
-                    <div className="w-[100px] h-[100px] rounded-full shadow-lg shadow-white/40 mb-2 bg-[url('/userlog.png')] bg-center bg-cover border-2 border-white/40"></div>
+                    <div className="w-[100px] h-[100px] rounded-full border-t-1 border-t-amber-200 mb-2 bg-[url('/userlog.png')] bg-center bg-cover "></div>
 
                     {/* Input Fields */}
                     <div className="w-full flex flex-col items-center mt-2 space-y-4">

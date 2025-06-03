@@ -29,7 +29,7 @@ export default function UserEditPage() {
                 firstName,
                 lastName,
                 role,
-                isBlocked: isBlocked,
+                isBlocked,
                 id,
             };
 

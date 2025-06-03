@@ -39,32 +39,37 @@ export default function ProductsPage() {
     }
 
     return (
-        <div className="relative w-full h-full max-h-full overflow-y-auto flex flex-col px-4 py-6 bg-gray-50">
+        <div className="relative w-full h-full overflow-hidden flex flex-col px-4 py-6 bg-gray-50">
+
+            <div className="relative w-full h-[100px] ">
+
+                <div className="absolute w-full h-[30px] top-1">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b border-gray-200 pb-2">
+                        PRODUCT MANAGEMENT
+                    </h2>
+                </div>
 
 
-            {/* Add Product Button */}
-            <div className="flex justify-end mb-4">
-                <Link
-                    to="/admin/add-product"
-                    className="bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded-md shadow transition-all duration-200"
-                >
-                    Add Product
-                </Link>
+                {/* Add Product Button */}
+                <div className="absolute right-10  float-right w-[140px]  p-1 flex justify-end mb-4">
+                    <Link
+                        to="/admin/add-product"
+                        className="bg-emerald-600 hover:bg-emerald-700 hover:scale-110 text-white font-bold px-4 py-1 rounded-md shadow transition-all duration-200"
+                    >
+                        Add Product
+                    </Link>
+                </div>
             </div>
 
-            {/* Loading Spinner */}
+            
             {isLoading ? (
                 <div className="w-full h-[400px] flex justify-center items-center">
                     <div className="w-16 h-16 border-8 border-t-red-600 border-gray-300 rounded-full animate-spin" />
                 </div>
             ) : (
                 <div>
-                    <div>
-                        <h2 className="text-2xl font-semibold text-gray-800 mb-4 border-b border-gray-300 pb-2">
-                            Product Management
-                        </h2>
-                    </div>
-                    <div className="overflow-x-auto rounded-lg shadow-lg bg-white">
+
+                    <div className="max-h-[550px] overflow-y-auto rounded-lg shadow-lg bg-white pb-8">
                         <table className="min-w-full text-sm text-gray-700">
                             <thead>
                                 <tr className="bg-gray-300 text-gray-800 text-base">
