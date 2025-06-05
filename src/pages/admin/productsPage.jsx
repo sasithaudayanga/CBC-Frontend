@@ -76,8 +76,8 @@ export default function ProductsPage() {
                                     <th className="px-4 py-2 border border-white text-left">Product ID</th>
                                     <th className="px-4 py-2 border border-white text-left">Product Name</th>
                                     <th className="px-4 py-2 border border-white text-center">Image</th>
-                                    <th className="px-4 py-2 border border-white text-right">Labelled Price</th>
-                                    <th className="px-4 py-2 border border-white text-right">Price</th>
+                                    <th className="px-4 py-2 border border-white text-right">Labelled Price (LKR)</th>
+                                    <th className="px-4 py-2 border border-white text-right">Price (LKR)</th>
                                     <th className="px-4 py-2 border border-white text-right">Stock</th>
                                     <th className="px-4 py-2 border border-white text-center">Actions</th>
                                 </tr>
@@ -98,10 +98,10 @@ export default function ProductsPage() {
                                             />
                                         </td>
                                         <td className="px-4 py-2 border border-white shadow text-right">
-                                            LKR {item.labelledPrice.toFixed(2)}
+                                             {item.labelledPrice.toLocaleString('en-LK', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                         </td>
                                         <td className="px-4 py-2 border border-white shadow text-right">
-                                            LKR {item.price.toFixed(2)}
+                                             {item.price.toLocaleString('en-LK', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                         </td>
                                         <td className="px-4 py-2 border border-white shadow text-right">
                                             {item.stock}
