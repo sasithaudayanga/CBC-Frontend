@@ -6,8 +6,8 @@ import SignUpPage from './pages/signUp';
 import HomePage from './pages/home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AdminPage from './pages/adminPage';
-import TestPage from './pages/test';
 import { Toaster } from 'react-hot-toast';
+import TestPage1 from './pages/test';
 
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/admin/*" element={<AdminPage />} />
-          <Route path="/testing/*" element={<TestPage />} />
+          <Route path="/test" element={<TestPage1/>} />          
           <Route path="/*" element={<HomePage />} />
 
         </Routes>

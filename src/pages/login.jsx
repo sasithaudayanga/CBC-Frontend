@@ -44,7 +44,7 @@ export default function LoginPage() {
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
                             placeholder="Email"
-                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-black placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
                         />
 
                         <input
@@ -52,7 +52,7 @@ export default function LoginPage() {
                             value={password}
                             type="password"
                             placeholder="Password"
-                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-black placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
                         />
 
                         <button

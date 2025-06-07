@@ -3,8 +3,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from 'react-modal';
 import { CgClose } from "react-icons/cg";
+import toast from "react-hot-toast";
 
 Modal.setAppElement('#root');
+
+
 
 export default function OrdersPage() {
     const [orders, setOrders] = useState([]);
@@ -31,7 +34,7 @@ export default function OrdersPage() {
         };
 
         fetchOrders();
-    }, []);
+    }, [isLoading]);
 
     const openModal = (order) => {
         setActiveOrder(order);
@@ -95,7 +98,18 @@ export default function OrdersPage() {
 
                                         {new Date(order.date).toLocaleDateString('en-GB')}
                                     </td>
-                                    <td className="px-4 py-2 border border-white shadow">{order.status}</td>
+                                    <td className={`px-4 py-2 border border-white shadow ${order.status === 'Pending'
+                                            ? 'text-yellow-600'
+                                            : order.status === 'Completed'
+                                                ? 'text-green-600'
+                                                : 'text-red-600'
+                                        }`} >
+
+                                        {order.status}
+
+
+
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
@@ -105,99 +119,162 @@ export default function OrdersPage() {
 
 
             <Modal
-    isOpen={isModalOpen}
-    onRequestClose={closeModal}
-    className="bg-white p-8 rounded-xl shadow-2xl max-w-6xl mx-auto mt-20 overflow-y-auto max-h-[85vh] print:max-h-full print:overflow-visible"
-    overlayClassName="fixed inset-0 bg-[#00000060] bg-opacity-40 flex justify-center items-start z-50"
-    contentLabel="Order Details"
->
-    {activeOrder && (
-        <div className="space-y-6 print:space-y-4">
-            {/* Header */}
-            <div className="flex justify-between items-center border-b pb-4">
-                <h3 className="text-2xl font-bold text-gray-800">
-                    Order #{activeOrder.orderId}
-                </h3>
-                <div className="space-x-3 print:hidden">
-                    <button
-                        onClick={() => window.print()}
-                        className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-1.5 rounded-full text-sm font-medium transition-transform transform hover:scale-105"
-                    >
-                        Print
-                    </button>
-                    <button
-                        onClick={closeModal}
-                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-1.5 rounded-full text-sm font-medium transition-transform transform hover:scale-105"
-                    >
-                        Close
-                    </button>
-                </div>
-            </div>
+                isOpen={isModalOpen}
+                onRequestClose={closeModal}
+                className="bg-white p-8 rounded-xl shadow-2xl max-w-6xl mx-auto mt-20 overflow-y-auto max-h-[85vh] print:max-h-full print:overflow-visible"
+                overlayClassName="fixed inset-0 bg-[#00000060] bg-opacity-40 flex justify-center items-start z-50"
+                contentLabel="Order Details"
+            >
+                {activeOrder && (
+                    <div className="space-y-6 print:space-y-4">
+                        {/* Header */}
+                        <div className="flex justify-between items-center border-b pb-4">
+                            <h3 className="text-2xl font-bold text-gray-800">
+                                Order #{activeOrder.orderId}
+                            </h3>
+                            <div className="space-x-3 print:hidden">
+                                <button
+                                    onClick={() => window.print()}
+                                    className="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-1.5 rounded-full text-sm font-medium transition-transform transform hover:scale-105"
+                                >
+                                    Print
+                                </button>
+                                <button
+                                    onClick={closeModal}
+                                    className="bg-red-600 hover:bg-red-700 text-white px-4 py-1.5 rounded-full text-sm font-medium transition-transform transform hover:scale-105"
+                                >
+                                    Close
+                                </button>
+                            </div>
+                        </div>
 
-            {/* Order Info */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-700">
-                <p><span className="font-medium">Name:</span> {activeOrder.name}</p>
-                <p><span className="font-medium">Order Date:</span> {new Date(activeOrder.date).toLocaleDateString('en-GB')}</p>
-                <p><span className="font-medium">Email:</span> {activeOrder.email}</p>
-                <p><span className="font-medium">Labelled Total:</span> LKR {activeOrder.labelledTotal.toLocaleString('en-LK', { minimumFractionDigits: 2 })}</p>
-                <p><span className="font-medium">Phone:</span> {activeOrder.phone}</p>
-                <p><span className="font-medium">Discount:</span> LKR {(activeOrder.labelledTotal - activeOrder.total).toLocaleString('en-LK', { minimumFractionDigits: 2 })}</p>
-                <p><span className="font-medium">Address:</span> {activeOrder.address}</p>
-                <p><span className="font-medium">Total:</span> LKR {activeOrder.total.toLocaleString('en-LK', { minimumFractionDigits: 2 })}</p>
-                <p><span className="font-medium">Status:</span> {activeOrder.status}</p>             
-                
-                
-                
-            </div>
+                        {/* Order Info */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-700">
+                            <p><span className="font-medium">Name:</span> {activeOrder.name}</p>
+                            <p>
+                                <span className="font-medium">Status:</span>{' '}
+                                <span
+                                    className={`font-medium ${activeOrder.status === 'Pending'
+                                        ? 'text-yellow-600'
+                                        : activeOrder.status === 'Completed'
+                                            ? 'text-green-600'
+                                            : 'text-red-500'
+                                        }`}
+                                >
+                                    {activeOrder.status.toUpperCase()}
+                                </span>
+                                <select onChange={
+                                    async (e) => {
+                                        console.log(e.target.value);
+                                        const updatedValue = e.target.value;
 
-            {/* Products Table */}
-            <div>
-                <h4 className="text-lg font-semibold text-gray-800 mb-3">Product Details</h4>
-                <div className="overflow-x-auto rounded-lg shadow">
-                    <table className="min-w-full bg-white text-sm text-left border-collapse">
-                        <thead className="bg-gray-200 text-gray-800">
-                            <tr>
-                                <th className="px-4 py-2 border-1 border-white">Image</th>
-                                <th className="px-4 py-2 border-1 border-white">Product Name</th>
-                                <th className="px-4 py-2 border-1 border-white text-center">Qty</th>
-                                <th className="px-4 py-2 border-1 border-white text-right">Labelled Price (LKR)</th>
-                                <th className="px-4 py-2 border-1 border-white text-right">Discount (LKR)</th>
-                                <th className="px-4 py-2 border-1 border-white text-right">Price (LKR)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {activeOrder.products.map((item, index) => (
-                                <tr key={index} className="hover:bg-gray-50 transition-all">
-                                    <td className="border-1 border-white shadow px-4 py-2">
-                                        <img
-                                            src={item.productInfo.images[0]}
-                                            alt={item.productInfo.name}
-                                            className="w-16 h-16 object-cover rounded"
-                                        />
-                                    </td>
-                                    <td className="border-1 border-white shadow px-4 py-2">{item.productInfo.name}</td>
-                                    
-                                    <td className="border-1 border-white shadow px-4 py-2 text-center">{item.qty}</td>
-                                    <td className="border-1 border-white shadow px-4 py-2 text-right">
-                                        {item.productInfo.labelledPrice.toLocaleString('en-LK', { minimumFractionDigits: 2 })}
-                                    </td>
-                                    <td className="border-1 border-white shadow px-4 py-2 text-right">
-                                        {(item.productInfo.labelledPrice - item.productInfo.price).toLocaleString('en-LK', { minimumFractionDigits: 2 })}
-                                    </td>
-                                    <td className="border-1 border-white shadow px-4 py-2 text-right">
-                                        {item.productInfo.price.toLocaleString('en-LK', { minimumFractionDigits: 2 })}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    )}
-</Modal>
+                                        const token = localStorage.getItem("token");
+
+                                        try {
+                                            if (token == null) {
+                                                toast.error("Please login first");
+                                                return
+                                            }
+
+                                            await axios.put(
+                                                import.meta.env.VITE_BACKEND_URL +
+                                                "/api/orders/" +
+                                                activeOrder.orderId + "/" + updatedValue,
+                                                {},
+                                                {
+                                                    headers: {
+                                                        "Authorization": "Bearer " + token
+                                                    }
+                                                }
+                                            );
+                                            toast.success("Order status changed succsessfully")
+                                            setIsLoading(true);
+                                            const updatedOrder = { ...activeOrder }
+                                            updatedOrder.status = updatedValue;
+                                            setActiveOrder(updatedOrder);
 
 
-        </div>
+                                        } catch (e) {
+                                            console.log(e)
+                                            toast.error("Faild to change order status")
+                                        }
+
+
+                                    }
+                                }
+                                >
+                                    <option selected disabled>Change Status</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                    <option value="Return">Return</option>
+                                </select>
+                            </p>
+
+
+                            <p><span className="font-medium">Email:</span> {activeOrder.email}</p>
+                            <p><span className="font-medium">Order Date:</span> {new Date(activeOrder.date).toLocaleDateString('en-GB')}</p>
+                            <p><span className="font-medium">Phone:</span> {activeOrder.phone}</p>
+                            <p><span className="font-medium">Labelled Total:</span> LKR {activeOrder.labelledTotal.toLocaleString('en-LK', { minimumFractionDigits: 2 })}</p>
+                            <p><span className="font-medium">Address:</span> {activeOrder.address}</p>
+                            <p><span className="font-medium">Discount:</span> LKR {(activeOrder.labelledTotal - activeOrder.total).toLocaleString('en-LK', { minimumFractionDigits: 2 })}</p>
+                            <p><span></span></p>
+                            <p><span className="font-medium">Total:</span> LKR {activeOrder.total.toLocaleString('en-LK', { minimumFractionDigits: 2 })}</p>
+
+
+
+
+                        </div>
+
+                        {/* Products Table */}
+                        <div>
+                            <h4 className="text-lg font-semibold text-gray-800 mb-3">Product Details</h4>
+                            <div className="overflow-x-auto rounded-lg shadow">
+                                <table className="min-w-full bg-white text-sm text-left border-collapse">
+                                    <thead className="bg-gray-200 text-gray-800">
+                                        <tr>
+                                            <th className="px-4 py-2 border-1 border-white">Image</th>
+                                            <th className="px-4 py-2 border-1 border-white">Product Name</th>
+                                            <th className="px-4 py-2 border-1 border-white text-center">Qty</th>
+                                            <th className="px-4 py-2 border-1 border-white text-right">Labelled Price (LKR)</th>
+                                            <th className="px-4 py-2 border-1 border-white text-right">Discount (LKR)</th>
+                                            <th className="px-4 py-2 border-1 border-white text-right">Price (LKR)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {activeOrder.products.map((item, index) => (
+                                            <tr key={index} className="hover:bg-gray-50 transition-all">
+                                                <td className="border-1 border-white shadow px-4 py-2">
+                                                    <img
+                                                        src={item.productInfo.images[0]}
+                                                        alt={item.productInfo.name}
+                                                        className="w-16 h-16 object-cover rounded"
+                                                    />
+                                                </td>
+                                                <td className="border-1 border-white shadow px-4 py-2">{item.productInfo.name}</td>
+
+                                                <td className="border-1 border-white shadow px-4 py-2 text-center">{item.qty}</td>
+                                                <td className="border-1 border-white shadow px-4 py-2 text-right">
+                                                    {item.productInfo.labelledPrice.toLocaleString('en-LK', { minimumFractionDigits: 2 })}
+                                                </td>
+                                                <td className="border-1 border-white shadow px-4 py-2 text-right">
+                                                    {(item.productInfo.labelledPrice - item.productInfo.price).toLocaleString('en-LK', { minimumFractionDigits: 2 })}
+                                                </td>
+                                                <td className="border-1 border-white shadow px-4 py-2 text-right">
+                                                    {item.productInfo.price.toLocaleString('en-LK', { minimumFractionDigits: 2 })}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                )
+                }
+            </Modal >
+
+
+        </div >
     );
 }

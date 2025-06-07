@@ -39,7 +39,7 @@ export default function ProductsPage() {
     }
 
     return (
-        <div className="relative w-full h-full overflow-hidden flex flex-col px-4 py-6 bg-gray-50">
+        <div className=" w-full h-full overflow-hidden flex flex-col px-4 py-6 bg-gray-50">
 
             <div className="relative w-full h-[100px] ">
 
@@ -62,6 +62,7 @@ export default function ProductsPage() {
             </div>
 
             
+            
             {isLoading ? (
                 <div className="w-full h-[400px] flex justify-center items-center">
                     <div className="w-16 h-16 border-8 border-t-red-600 border-gray-300 rounded-full animate-spin" />
@@ -69,7 +70,8 @@ export default function ProductsPage() {
             ) : (
                 <div>
 
-                    <div className="max-h-[550px] overflow-y-auto rounded-lg shadow-lg bg-white pb-8">
+
+                    <div className="mt-1 max-h-[450px] overflow-y-auto rounded-lg shadow-lg bg-white pb-8">
                         <table className="min-w-full text-sm text-gray-700">
                             <thead>
                                 <tr className="bg-gray-300 text-gray-800 text-base">
