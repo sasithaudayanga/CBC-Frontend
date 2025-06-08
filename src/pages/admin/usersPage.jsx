@@ -67,7 +67,7 @@ export default function UsersPage() {
                             <div className="w-16 h-16 border-8 border-t-red-600 border-gray-300 rounded-full animate-spin" />
                         </div>
                     ) : (
-                        <div className="max-h-[500px] overflow-y-auto rounded-lg shadow-lg bg-white pb-8">
+                        <div className="max-h-[450px] overflow-y-auto rounded-lg shadow-lg bg-white pb-8">
                             <table className="min-w-full text-sm text-gray-700">
                                 <thead>
                                     <tr className="bg-gray-300 text-gray-800 text-base">

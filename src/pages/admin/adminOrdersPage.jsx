@@ -55,7 +55,7 @@ export default function OrdersPage() {
 
 
     return (
-        <div className="w-full h-full px-4 py-6 bg-gray-50">
+        <div className="w-full h-full overflow-hidden px-4 py-6 bg-gray-50">
             <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b border-gray-200 pb-2">
                 ORDER MANAGEMENT
             </h2>
@@ -65,7 +65,7 @@ export default function OrdersPage() {
                     <div className="w-16 h-16 border-8 border-t-red-600 border-gray-300 rounded-full animate-spin" />
                 </div>
             ) : (
-                <div className="max-h-[600px] overflow-y-auto rounded-lg shadow bg-white">
+                <div className="max-h-[450px] overflow-y-auto rounded-lg shadow bg-white">
                     <table className="min-w-full text-sm text-gray-700">
                         <thead >
                             <tr className="bg-gray-300 text-gray-800 text-base">
@@ -79,7 +79,7 @@ export default function OrdersPage() {
                                 <th className="px-4 py-2 border border-white text-left">Status</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody >
                             {orders.map((order, index) => (
                                 <tr
                                     key={index}
