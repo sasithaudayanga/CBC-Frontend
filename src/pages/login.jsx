@@ -51,12 +51,12 @@ export default function LoginPage() {
 
     return (
         <div className="w-full bg-[url('/loginbg.jpg')] bg-center bg-cover h-screen flex justify-evenly items-center">
-            <div className="hidden lg:block w-[50%] h-full"></div>
+            <div className="hidden  lg:block w-[50%] h-full"></div>
 
             <div className="w-[50%] h-full flex justify-center items-center">
                 <div className="w-[350px] h-[500px] rounded-3xl backdrop-blur-md shadow-2xl border border-white/30 bg-white/10 flex flex-col justify-center items-center px-4 py-6 transition-all">
                     {/* User Image */}
-                    <div className="w-[100px] h-[100px] rounded-full border-t-1 border-t-amber-200 mb-2 bg-[url('/userlog.png')] bg-center bg-cover "></div>
+                    <div className="w-[100px] h-[100px] rounded-full border-1 border-teal-300/30 mb-2 bg-[url('/userlog.png')] bg-center bg-cover "></div>
 
                     {/* Input Fields */}
                     <div className="w-full flex flex-col items-center mt-2 space-y-4">
@@ -64,7 +64,7 @@ export default function LoginPage() {
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
                             placeholder="Email"
-                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-black placeholder-gray/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-black placeholder-gray/70 focus:outline-none focus:ring-1 focus:ring-teal-300 transition-all"
                         />
 
                         <input
@@ -72,7 +72,7 @@ export default function LoginPage() {
                             value={password}
                             type="password"
                             placeholder="Password"
-                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-black placeholder-gray/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-black placeholder-gray/70 focus:outline-none focus:ring-1 focus:ring-teal-300 transition-all"
                         />
 
                         <button
@@ -89,7 +89,7 @@ export default function LoginPage() {
                         {/* Links */}
                         <div className="flex justify-between items-center w-[280px] mt-3 text-sm">
                             <Link
-                                to="/forgot-password"
+                                to="/forget"
                                 className="text-gray-800 hover:text-black hover:underline transition-all"
                             >
                                 Forgot Password?

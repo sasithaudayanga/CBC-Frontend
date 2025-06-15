@@ -23,10 +23,10 @@ export default function SignupPage() {
             );
 
             toast.success(response.data.message || "Signup successful");
-            navigate("/login"); // ✅ Navigate only after success
+            navigate("/login"); 
         } catch (err) {
             toast.error(err.response?.data?.message || "Signup failed");
-            // ❌ Do not navigate; stay on the same page
+            
         }
     }
 
@@ -38,7 +38,7 @@ export default function SignupPage() {
                 <div className="w-[350px] h-[550px] rounded-3xl backdrop-blur-md bg-white/10 border border-white/30 shadow-2xl px-4 py-6 flex flex-col justify-center items-center transition-all">
                     
                     {/* User Avatar */}
-                    <div className="w-[100px] h-[100px] rounded-full shadow-lg shadow-white/30 mb-3 bg-[url('/userlog.png')] bg-center bg-cover border-2 border-white/30"></div>
+                    <div className="w-[100px] h-[100px] rounded-full mb-3 bg-[url('/userlog.png')] bg-center bg-cover border-1 border-teal-300/30"></div>
 
                     {/* Signup Form */}
                     <div className="w-full flex flex-col items-center space-y-4 mt-2">
@@ -46,21 +46,21 @@ export default function SignupPage() {
                             onChange={(e) => setFirstName(e.target.value)}
                             value={firstName}
                             placeholder="First Name"
-                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-black placeholder-gray/70 focus:outline-none focus:ring-1 focus:ring-teal-300 transition-all"
                         />
 
                         <input
                             onChange={(e) => setLastName(e.target.value)}
                             value={lastName}
                             placeholder="Last Name"
-                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-black placeholder-gray/70 focus:outline-none focus:ring-1 focus:ring-teal-300 transition-all"
                         />
 
                         <input
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
                             placeholder="Email"
-                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
+                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-black placeholder-gray/70 focus:outline-none focus:ring-1 focus:ring-teal-300 transition-all"
                         />
 
                         <input
@@ -68,8 +68,8 @@ export default function SignupPage() {
                             value={password}
                             type="password"
                             placeholder="Password"
-                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-teal-400 transition"
-                        />
+                            className="w-[280px] h-[45px] px-4 rounded-xl border border-teal-300 bg-white/20 text-black placeholder-gray/70 focus:outline-none focus:ring-1 focus:ring-teal-300 transition-all"
+                            />
 
                         <button
                             onClick={handleSignup}
