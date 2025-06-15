@@ -12,17 +12,21 @@ export default function SignupPage() {
 
     async function handleSignup() {
         try {
-            const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/users", {
-                email,
-                password,
-                firstName,
-                lastName
-            });
+            const response = await axios.post(
+                import.meta.env.VITE_BACKEND_URL + "/api/users",
+                {
+                    email,
+                    password,
+                    firstName,
+                    lastName
+                }
+            );
 
-            toast.success(response.data.message);
-            navigate("/login");
+            toast.success(response.data.message || "Signup successful");
+            navigate("/login"); // ✅ Navigate only after success
         } catch (err) {
             toast.error(err.response?.data?.message || "Signup failed");
+            // ❌ Do not navigate; stay on the same page
         }
     }
 
@@ -69,7 +73,7 @@ export default function SignupPage() {
 
                         <button
                             onClick={handleSignup}
-                            className="w-[280px] h-[45px] rounded-xl bg-teal-500 hover:bg-teal-600 active:bg-teal-700 text-white font-semibold text-lg transition-all shadow-lg"
+                            className="w-[280px] h-[45px] hover:scale-102 transition-all rounded-xl bg-gray-200 cursor-pointer  active:scale-90 text-gray-700 font-semibold text-lg shadow-lg"
                         >
                             Sign Up
                         </button>

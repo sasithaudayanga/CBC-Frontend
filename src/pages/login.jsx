@@ -1,30 +1,33 @@
-import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { BsGoogle } from "react-icons/bs";
-import { CgGoogle } from "react-icons/cg";
 import { FcGoogle } from "react-icons/fc";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const googleLogin=useGoogleLogin({
-        onSuccess:(res)=>{
-            console.log(res);
-            const accessToken=res.access_token;
-            axios.post(import.meta.env.VITE_BACKEND_URL+"/api/users/login/google",{
-                accessToken:accessToken
-            }).then((response)=>{
+    const googleLogin = useGoogleLogin({
+        onSuccess: (res) => {
+            const accessToken = res.access_token;
+            axios.post(import.meta.env.VITE_BACKEND_URL + "/api/users/login/google", {
+                accessToken: accessToken
+            }).then((response) => {
                 console.log(response.data);
-                
-            })
+                toast.success(response.data.message);
+                const token = response.data.token;
+                localStorage.setItem("token", token);
 
+                if (response.data.role === "admin") {
+                    navigate("/admin/products");
+                } else {
+                    navigate("/");
+                }
+            });
         }
     });
-
 
     async function handleLogin() {
         try {
@@ -46,7 +49,6 @@ export default function LoginPage() {
         }
     }
 
-    
     return (
         <div className="w-full bg-[url('/loginbg.jpg')] bg-center bg-cover h-screen flex justify-evenly items-center">
             <div className="hidden lg:block w-[50%] h-full"></div>
@@ -75,15 +77,32 @@ export default function LoginPage() {
 
                         <button
                             onClick={handleLogin}
-                            className="w-[280px] h-[45px] hover:scale-102 transition-all rounded-xl bg-gray-200 cursor-pointer  active:scale-50 text-gray-700 font-semibold text-lg shadow-lg"
+                            className="w-[280px] h-[45px] hover:scale-102 transition-all rounded-xl bg-gray-200 cursor-pointer  active:scale-90 text-gray-700 font-semibold text-lg shadow-lg"
                         >
                             Sign In
                         </button>
-                        <button onClick={googleLogin} className="flex flex-row hover:scale-102 transition-all  justify-center items-center w-[280px] h-[45px] cursor-pointer rounded-xl bg-gray-200 active:scale-50 text-white font-semibold text-lg shadow-lg">
-                            <FcGoogle className="text-[20px] mx-2 "/>
+                        <button onClick={googleLogin} className="flex flex-row hover:scale-102 transition-all  justify-center items-center w-[280px] h-[45px] cursor-pointer rounded-xl bg-gray-200 active:scale-90 text-white font-semibold text-lg shadow-lg">
+                            <FcGoogle className="text-[20px] mx-2 " />
                             <span className=" text-[15px] text-gray-700 ">Sign in with Google</span>
                         </button>
-                        
+
+                        {/* Links */}
+                        <div className="flex justify-between items-center w-[280px] mt-3 text-sm">
+                            <Link
+                                to="/forgot-password"
+                                className="text-gray-800 hover:text-black hover:underline transition-all"
+                            >
+                                Forgot Password?
+                            </Link>
+                            <span className="text-gray-500">|</span>
+                            <Link
+                                to="/signup"
+                                className="text-gray-800 hover:text-black  hover:underline transition-all"
+                            >
+                                Create Account
+                            </Link>
+                        </div>
+
                     </div>
                 </div>
             </div>
