@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { VscTrash } from "react-icons/vsc";
 import { FaRegEdit } from "react-icons/fa";
 import toast from "react-hot-toast";
+import Loading from "../../components/loading";
 
 export default function ProductsPage() {
     const [products, setProducts] = useState([]);
@@ -64,9 +65,7 @@ export default function ProductsPage() {
             
             
             {isLoading ? (
-                <div className="w-full h-[400px] flex justify-center items-center">
-                    <div className="w-16 h-16 border-8 border-t-red-600 border-gray-300 rounded-full animate-spin" />
-                </div>
+                <Loading/>
             ) : (
                 <div>
 

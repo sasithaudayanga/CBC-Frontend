@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductCard from "../../components/productCard";
+import Loading from "../../components/loading";
 
 
 
@@ -23,17 +24,20 @@ export default function ClientProductPage(){
 
     return(
         <div className="w-full h-full flex flex-wrap justify-center items-center overflow-y-scroll ">
-
-        {
-            products.map(
+            {
+                isLoading ?
+                <Loading/>:
+                products.map(
                 (product)=>{
                     return(
                         <ProductCard key={product.productId} product={product}/>
                     )
 
             })
-        }
+                
+            }
 
+        
         </div>
     )
 }

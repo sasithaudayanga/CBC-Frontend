@@ -45,15 +45,19 @@ export default function UserEditPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center px-4 py-12">
+        <div className="overflow-hidden bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center px-4 py-6">
             <form
                 onSubmit={Updateuser}
-                className="w-full max-w-3xl bg-white shadow-2xl rounded-2xl p-10 space-y-8 transition-all duration-300"
+                className="w-[650px] overflow-y-auto h-[500px] bg-white shadow-2xl rounded-2xl p-10 space-y-2 transition-all duration-300"
             >
-                <div className="text-center">
-                    <h2 className="text-4xl font-bold text-gray-800 mb-2">Edit User</h2>
-                    <p className="text-gray-500">Update the user details below</p>
+                <div className="text-center w-full h-[60px] flex flex-col justify-center items-center rounded-2xl pt-3 pb-3 gap-0 bg-emerald-700">
+                    <h2 className="text-3xl font-bold text-white mb-2">Edit User</h2>
+
                 </div>
+                <div className="flex justify-center">
+                    <p className="text-gray-800">Update the user details below</p>
+                </div>
+
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -127,10 +131,10 @@ export default function UserEditPage() {
                     </div>
                 </div>
 
-                <div className="pt-4 border-t border-gray-200">
+                <div className=" pt-4 border-t border-gray-200 flex justify-center items-center">
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg font-semibold py-3 rounded-lg transition duration-300 shadow-md"
+                        className="w-[50%] bg-emerald-700 hover:bg-emerald-800 cursor-pointer hover:scale-110 text-white text-lg font-semibold py-3 rounded-lg transition duration-300 shadow-md"
                     >
                         Update User
                     </button>

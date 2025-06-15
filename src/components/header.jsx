@@ -43,7 +43,10 @@ export default function Header() {
   return (
     <>
       {/* Header */}
-      <header className="relative w-full h-[80px] shadow-lg bg-white flex items-center justify-center px-6 border-b border-gray-200 z-30">
+      <header className="relative w-full h-[80px] shadow-lg bg-white flex
+       items-center justify-center px-6 border-b border-gray-200 z-30">
+        
+        {/*mobile responsive sidebar icon*/}
         <GiHamburgerMenu
           onClick={() => setSideBarOpen(true)}
           className="absolute left-2 text-3xl md:hidden"

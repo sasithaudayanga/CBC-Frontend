@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { VscTrash } from "react-icons/vsc";
+import Loading from "../../components/loading";
 
 export default function ReviewsPage() {
     const [review, setReview] = useState([]);
@@ -54,9 +55,7 @@ export default function ReviewsPage() {
 
             {/* Loading Spinner */}
             {isLoading ? (
-                <div className="w-full h-[400px] flex justify-center items-center">
-                    <div className="w-16 h-16 border-8 border-t-red-600 border-gray-300 rounded-full animate-spin" />
-                </div>
+                <Loading/>
             ) : (
                 <div className="max-h-[450px] overflow-y-auto rounded-lg shadow-lg bg-white">
                     <table className="min-w-full text-sm text-gray-700">

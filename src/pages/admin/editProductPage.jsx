@@ -62,8 +62,8 @@ export default function EditProductPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-lg">
+    <div className=" bg-gray-50 flex justify-center items-center overflow-hidden">
+      <div className="w-full max-w-md h-[500px] bg-white p-8 rounded-lg shadow-lg overflow-y-auto">
         <h2 className="bg-green-800 rounded-md text-2xl font-extrabold text-white mb-6 text-center">
           Edit Product
         </h2>
@@ -220,14 +220,14 @@ export default function EditProductPage() {
           <div className="flex justify-between mt-6">
             <Link
               to="/admin/products"
-              className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition"
+              className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-red-700 hover:bg-red-800 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition"
             >
-              Cancel
+              Return
             </Link>
 
             <button
               type="submit"
-              className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-semibold rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition"
+              className="inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-semibold rounded-md cursor-pointer text-white bg-emerald-700 hover:bg-emerald-800 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition"
             >
               Update Product
             </button>

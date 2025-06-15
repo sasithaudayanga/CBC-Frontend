@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import { FaRegEdit } from "react-icons/fa";
 import { VscTrash } from "react-icons/vsc";
 import { Link, useNavigate } from "react-router-dom";
+import Loading from "../../components/loading";
 
 export default function UsersPage() {
     const [user, setUser] = useState([]);
@@ -63,9 +64,7 @@ export default function UsersPage() {
                 <div className="relative w-full h-full flex flex-col px-4 py-6 bg-gray-50">
                     {/* Loading Spinner */}
                     {isloading ? (
-                        <div className="w-full h-[400px] flex justify-center items-center">
-                            <div className="w-16 h-16 border-8 border-t-red-600 border-gray-300 rounded-full animate-spin" />
-                        </div>
+                        <Loading/>
                     ) : (
                         <div className="max-h-[450px] overflow-y-auto rounded-lg shadow-lg bg-white pb-8">
                             <table className="min-w-full text-sm text-gray-700">
