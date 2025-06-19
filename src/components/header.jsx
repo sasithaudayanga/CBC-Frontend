@@ -65,6 +65,7 @@ export default function Header() {
           <Link to="/products" className="text-lg font-semibold text-gray-800 hover:text-emerald-600 transition-colors duration-200">Products</Link>
           <Link to="/about" className="text-lg font-semibold text-gray-800 hover:text-emerald-600 transition-colors duration-200">About Us</Link>
           <Link to="/contact" className="text-lg font-semibold text-gray-800 hover:text-emerald-600 transition-colors duration-200">Contact</Link>
+       <Link to="/search" className="text-lg font-semibold text-gray-800 hover:text-emerald-600 transition-colors duration-200">Search</Link>
         </div>
 
         {/* Cart Icon */}

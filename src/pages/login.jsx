@@ -51,10 +51,10 @@ export default function LoginPage() {
 
     return (
         <div className="w-full bg-[url('/loginbg.jpg')] bg-center bg-cover h-screen flex justify-evenly items-center">
-            <div className="hidden  lg:block w-[50%] h-full"></div>
+            <div className="hidden bg-gradient-to-br  lg:block w-[50%] h-full"></div>
 
             <div className="w-[50%] h-full flex justify-center items-center">
-                <div className="w-[350px] h-[500px] rounded-3xl backdrop-blur-md shadow-2xl border border-white/30 bg-white/10 flex flex-col justify-center items-center px-4 py-6 transition-all">
+                <div className="w-[350px] h-[500px] rounded-3xl backdrop-blur-sm shadow-2xl border border-white/30 bg-white/10 flex flex-col justify-center items-center px-4 py-6 transition-all">
                     {/* User Image */}
                     <div className="w-[100px] h-[100px] rounded-full border-1 border-teal-300/30 mb-2 bg-[url('/userlog.png')] bg-center bg-cover "></div>
 
@@ -81,6 +81,7 @@ export default function LoginPage() {
                         >
                             Sign In
                         </button>
+                        
                         <button onClick={googleLogin} className="flex flex-row hover:scale-102 transition-all  justify-center items-center w-[280px] h-[45px] cursor-pointer rounded-xl bg-gray-200 active:scale-90 text-white font-semibold text-lg shadow-lg">
                             <FcGoogle className="text-[20px] mx-2 " />
                             <span className=" text-[15px] text-gray-700 ">Sign in with Google</span>
