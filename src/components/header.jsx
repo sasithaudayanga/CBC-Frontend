@@ -5,6 +5,7 @@ import { GiHamburgerMenu, GiShoppingCart } from "react-icons/gi";
 export default function Header() {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const navigate = useNavigate();
+  const token=localStorage.getItem("token");
 
   const [showBadge, setShowBadge] = useState(localStorage.getItem("cart-glow") === "true");
   const [addedQty, setAddedQty] = useState(parseInt(localStorage.getItem("cart-added-qty") || "0"));
@@ -69,7 +70,16 @@ export default function Header() {
         </div>
 
         {/* Cart Icon */}
-        <div className="relative w-[80px] h-[80px] flex justify-center items-center">
+        <div className="relative w-[160px] h-[80px] flex justify-center items-center">
+           {/*logout button */}
+          <div>
+            {
+              token==null?
+              <Link to="/login" className="text-[20px] font-bold mx-2">Login</Link>
+              :<button className="">Logout</button>
+            }
+          </div>
+
           <div
             onClick={handleCartClick}
             className="hidden md:flex text-[35px] text-emerald-600 cursor-pointer hover:scale-110 transition-transform duration-200"
@@ -82,6 +92,8 @@ export default function Header() {
               {addedQty}
             </div>
           )}
+
+         
         </div>
       </header>
 
