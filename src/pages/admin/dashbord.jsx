@@ -10,6 +10,7 @@ export default function DashboardPage() {
     const [productCount, setProductCount] = useState(0);
     const [orderCount, setOrderCount] = useState(0);
     const[reviewCount,setReviewCount]=useState(0);
+    const[userCount,setUserCount]=useState(0);
 
 
     useEffect(() => {
@@ -36,8 +37,19 @@ export default function DashboardPage() {
                 }
             }).then((res3)=>{
                 setReviewCount(res3.data.length);
+                 //  console.log(res3.data);
+
+            });
+
+            axios.get(import.meta.env.VITE_BACKEND_URL+"/api/users",{
+              headers:{
+                    Authorization: "Bearer " + token
+                }
+
+            }).then((res4)=>{
+                setUserCount(res4.data.length);
                 setIsLoading(false);
-              //  console.log(res3.data);
+              // console.log(res4);
 
             });
 
@@ -59,9 +71,9 @@ export default function DashboardPage() {
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center items-center">
-          <div className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center border-t-4 border-amber-500 hover:scale-105 transition-transform duration-200">
+          <div className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center border-t-4 border-orange-500 hover:scale-105 transition-transform duration-200">
             <h2 className="text-lg font-semibold text-gray-700 mb-2">Total Products</h2>
-            <p className="text-4xl font-bold text-amber-500">{productCount}</p>
+            <p className="text-4xl font-bold text-orange-500">{productCount}</p>
           </div>
 
           <div className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center border-t-4 border-blue-500 hover:scale-105 transition-transform duration-200">
@@ -73,6 +85,12 @@ export default function DashboardPage() {
             <h2 className="text-lg font-semibold text-gray-700 mb-2">Total Reviews</h2>
             <p className="text-4xl font-bold text-green-500">{reviewCount}</p>
           </div>
+
+          <div className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center border-t-4 border-purple-500 hover:scale-105 transition-transform duration-200">
+            <h2 className="text-lg font-semibold text-gray-700 mb-2">Total Users</h2>
+            <p className="text-4xl font-bold text-purple-500">{userCount}</p>
+          </div>
+
         </div>
       </div>
     </>
