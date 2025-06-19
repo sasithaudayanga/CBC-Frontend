@@ -21,7 +21,7 @@ export default function LoginPage() {
                 localStorage.setItem("token", token);
 
                 if (response.data.role === "admin") {
-                    navigate("/admin/products");
+                    navigate("/admin");
                 } else {
                     navigate("/");
                 }
@@ -40,7 +40,7 @@ export default function LoginPage() {
             localStorage.setItem("token", response.data.token);
 
             if (response.data.role === "admin") {
-                navigate("/admin/products");
+                navigate("/admin");
             } else {
                 navigate("/");
             }
