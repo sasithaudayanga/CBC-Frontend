@@ -18,8 +18,10 @@ export default function AdminPage() {
   const location = useLocation();
   const path = location.pathname;
   const [adminSideBar, setAdminSideBar] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [status, setStatus] = useState("loading");//success ,reject
+  const[productCount,setProductCount]=useState(0);
 
   useEffect(() => {
      const token = localStorage.getItem("token");
@@ -52,6 +54,16 @@ export default function AdminPage() {
 
   }, [status])
 
+   useEffect(() => {
+        if (isLoading) {
+            axios.get(import.meta.env.VITE_BACKEND_URL + "/api/products").then((res) => {
+              setProductCount(res.data.length);
+                console.log(res.data.length);
+            });
+        }
+    }, [isLoading]);
+
+
   function getClass(name) {
     if (path.includes(name)) {
       return "px-7 py-1 text-lg font-medium rounded-l-full transition-all duration-200 bg-emerald-600 text-white"
@@ -61,7 +73,7 @@ export default function AdminPage() {
 
   }
 
-
+  
   return (
     <>
       <Header />
@@ -90,6 +102,19 @@ export default function AdminPage() {
 
             {/* Main Content */}
             <div className="  h-full w-full  border-2 border-emerald-50 shadow-inner rounded-tl-lg">
+              <div className="flex flex-row gap-5 justify-center items-center">
+                <div className="bg-amber-500 w-[250px] h-[400px]">
+                  <h1>Poduct Count : {productCount}</h1>
+                </div>
+
+                 <div>
+                  <h1>Ordr Count : {productCount}</h1>
+                </div>
+
+                <div>
+                  <h1>Review Count : {productCount}</h1>
+                </div>
+              </div>
 
               {/*Admin side bar */}
               <div className="lg:hidden">
