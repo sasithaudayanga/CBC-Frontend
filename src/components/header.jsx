@@ -70,7 +70,7 @@ export default function Header() {
         </div>
 
         {/* Cart Icon */}
-        <div className="relative w-[80px] h-[80px] flex justify-center items-center">
+        <div className="relative w-[160px] h-[80px] flex justify-center items-center">
            {/*logout button */}
           <div>
             {
