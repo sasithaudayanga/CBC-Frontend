@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Loading from "../components/loading.jsx";
+import DashboardPage from "./admin/dashbord.jsx";
 
 
 export default function AdminPage() {
@@ -21,8 +22,7 @@ export default function AdminPage() {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [status, setStatus] = useState("loading");//success ,reject
-  const[productCount,setProductCount]=useState(0);
-
+  
   useEffect(() => {
      const token = localStorage.getItem("token");
     if (!token || token === "") {
@@ -53,16 +53,6 @@ export default function AdminPage() {
     }
 
   }, [status])
-
-   useEffect(() => {
-        if (isLoading) {
-            axios.get(import.meta.env.VITE_BACKEND_URL + "/api/products").then((res) => {
-              setProductCount(res.data.length);
-                console.log(res.data.length);
-            });
-        }
-    }, [isLoading]);
-
 
   function getClass(name) {
     if (path.includes(name)) {
@@ -102,20 +92,7 @@ export default function AdminPage() {
 
             {/* Main Content */}
             <div className="  h-full w-full  border-2 border-emerald-50 shadow-inner rounded-tl-lg">
-              <div className="flex flex-row gap-5 justify-center items-center">
-                <div className="bg-amber-500 w-[250px] h-[400px]">
-                  <h1>Poduct Count : {productCount}</h1>
-                </div>
-
-                 <div>
-                  <h1>Ordr Count : {productCount}</h1>
-                </div>
-
-                <div>
-                  <h1>Review Count : {productCount}</h1>
-                </div>
-              </div>
-
+              
               {/*Admin side bar */}
               <div className="lg:hidden">
                 <button onClick={() => setAdminSideBar(true)} className=" text-[20px] font-bold">Menu</button>
@@ -123,6 +100,7 @@ export default function AdminPage() {
 
               <Routes>
                 <Route path="/products" element={<ProductsPage />} />
+                <Route path="/" element={<DashboardPage/>} />
                 <Route path="/users" element={<UsersPage />} />
                 <Route path="/orders" element={<OrdersPage />} />
                 <Route path="/review" element={<ReviewsPage />} />
