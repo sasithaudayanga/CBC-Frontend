@@ -65,12 +65,12 @@ export default function DashboardPage() {
 
     return (
     <>
-      <div className="py-10 px-4 sm:px-10">
+      <div className="  py-10 px-4 sm:px-10">
         <h1 className="text-3xl font-bold text-center text-emerald-700 mb-10">
           Admin Dashboard Summary
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center items-center">
+        <div className="grid grid-cols-1 flex-wrap   md:grid-cols-3 gap-6 justify-center items-center">
           <div className="bg-white shadow-lg rounded-xl p-6 flex flex-col items-center border-t-4 border-orange-500 hover:scale-105 transition-transform duration-200">
             <h2 className="text-lg font-semibold text-gray-700 mb-2">Total Products</h2>
             <p className="text-4xl font-bold text-orange-500">{productCount}</p>
