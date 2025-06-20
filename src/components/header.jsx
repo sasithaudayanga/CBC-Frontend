@@ -6,6 +6,7 @@ export default function Header() {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const userRole=localStorage.getItem("role");
 
   const [showBadge, setShowBadge] = useState(localStorage.getItem("cart-glow") === "true");
   const [addedQty, setAddedQty] = useState(parseInt(localStorage.getItem("cart-added-qty") || "0"));
@@ -41,6 +42,7 @@ export default function Header() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("role");
     navigate("/");
   };
 
@@ -62,6 +64,17 @@ export default function Header() {
         />
 
         {/* Nav links - desktop only */}
+        {
+          userRole=="admin"?
+          <nav className="hidden md:flex gap-6 text-gray-800 font-semibold text-lg">
+          <Link to="/" className="hover:text-emerald-600 transition">Home</Link>
+          <Link to="/products" className="hover:text-emerald-600 transition">Products</Link>
+          <Link to="/about" className="hover:text-emerald-600 transition">About Us</Link>
+          <Link to="/contact" className="hover:text-emerald-600 transition">Contact</Link>
+          <Link to="/search" className="hover:text-emerald-600 transition">Search</Link>
+          <Link to="/admin" className="absolute ml-[-200px] bg-emerald-600 hover:scale-110 p-1 text-white text-[15px] rounded-2xl transition">Admin-Dashboard</Link>
+        </nav>
+        :
         <nav className="hidden md:flex gap-6 text-gray-800 font-semibold text-lg">
           <Link to="/" className="hover:text-emerald-600 transition">Home</Link>
           <Link to="/products" className="hover:text-emerald-600 transition">Products</Link>
@@ -69,6 +82,8 @@ export default function Header() {
           <Link to="/contact" className="hover:text-emerald-600 transition">Contact</Link>
           <Link to="/search" className="hover:text-emerald-600 transition">Search</Link>
         </nav>
+        }
+        
 
         {/* Right section: Cart + Login/Logout */}
         <div className="flex items-center gap-4 relative">
