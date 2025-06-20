@@ -32,7 +32,7 @@ export default function SignupPage() {
 
     return (
         <div className="w-full bg-[url('/loginbg.jpg')] bg-center bg-cover h-screen flex justify-evenly items-center">
-            <div className="w-[50%] h-full bg-white opacity-0"></div>
+            <div className="hidden w-[50%] h-full bg-white opacity-0"></div>
 
             <div className="w-[50%] h-full flex justify-center items-center">
                 <div className="w-[350px] h-[550px] rounded-3xl backdrop-blur-md bg-white/10 border border-white/30 shadow-2xl px-4 py-6 flex flex-col justify-center items-center transition-all">
