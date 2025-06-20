@@ -23,7 +23,7 @@ export default function ClientProductPage(){
     )
 
     return(
-        <div className="w-full h-full flex flex-wrap justify-center items-center overflow-y-scroll ">
+        <div className="w-full h-full pt-1.5 flex flex-wrap justify-center items-center overflow-y-scroll ">
             {
                 isLoading ?
                 <Loading/>:
