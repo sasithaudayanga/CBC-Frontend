@@ -12,15 +12,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Loading from "../components/loading.jsx";
+import DashboardPage from "./admin/dashbord.jsx";
 
 
 export default function AdminPage() {
   const location = useLocation();
   const path = location.pathname;
   const [adminSideBar, setAdminSideBar] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [status, setStatus] = useState("loading");//success ,reject
-
+  
   useEffect(() => {
      const token = localStorage.getItem("token");
     if (!token || token === "") {
@@ -61,7 +63,7 @@ export default function AdminPage() {
 
   }
 
-
+  
   return (
     <>
       <Header />
@@ -90,7 +92,7 @@ export default function AdminPage() {
 
             {/* Main Content */}
             <div className="  h-full w-full  border-2 border-emerald-50 shadow-inner rounded-tl-lg">
-
+              
               {/*Admin side bar */}
               <div className="lg:hidden">
                 <button onClick={() => setAdminSideBar(true)} className=" text-[20px] font-bold">Menu</button>
@@ -98,6 +100,7 @@ export default function AdminPage() {
 
               <Routes>
                 <Route path="/products" element={<ProductsPage />} />
+                <Route path="/" element={<DashboardPage/>} />
                 <Route path="/users" element={<UsersPage />} />
                 <Route path="/orders" element={<OrdersPage />} />
                 <Route path="/review" element={<ReviewsPage />} />

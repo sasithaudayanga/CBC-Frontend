@@ -5,6 +5,7 @@ import { GiHamburgerMenu, GiShoppingCart } from "react-icons/gi";
 export default function Header() {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const navigate = useNavigate();
+  const token=localStorage.getItem("token");
 
   const [showBadge, setShowBadge] = useState(localStorage.getItem("cart-glow") === "true");
   const [addedQty, setAddedQty] = useState(parseInt(localStorage.getItem("cart-added-qty") || "0"));
@@ -69,7 +70,27 @@ export default function Header() {
         </div>
 
         {/* Cart Icon */}
-        <div className="relative w-[80px] h-[80px] flex justify-center items-center">
+        <div className="relative w-[160px] h-[80px] flex justify-center items-center">
+           {/*logout button */}
+          <div>
+            {
+              token==null?
+              <button onClick={()=>{
+                navigate("/login")
+              }} className="w-[50px] cursor-pointer active:scale-85 text-blue-600 hover:text-blue-700 mt-4 font-bold rounded-lg text-[16px] transition-all">
+                Login
+                
+                </button>
+
+              :<button onClick={()=>{
+                localStorage.removeItem("token");
+                navigate("/");
+              }} className="w-[80px] cursor-pointer active:scale-85 text-red-600 hover:text-red-700 mt-4 font-bold rounded-lg text-[16px] transition-all">
+                Logout
+                </button>
+            }
+          </div>
+
           <div
             onClick={handleCartClick}
             className="hidden md:flex text-[35px] text-emerald-600 cursor-pointer hover:scale-110 transition-transform duration-200"
@@ -82,6 +103,8 @@ export default function Header() {
               {addedQty}
             </div>
           )}
+
+         
         </div>
       </header>
 
