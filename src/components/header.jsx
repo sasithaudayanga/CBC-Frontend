@@ -75,8 +75,19 @@ export default function Header() {
           <div>
             {
               token==null?
-              <Link to="/login" className="text-[20px] font-bold mx-2">Login</Link>
-              :<button className="">Logout</button>
+              <button onClick={()=>{
+                navigate("/login")
+              }} className="w-[50px] cursor-pointer active:scale-85 text-blue-600 hover:text-blue-700 mt-4 font-bold rounded-lg text-[16px] transition-all">
+                Login
+                
+                </button>
+
+              :<button onClick={()=>{
+                localStorage.removeItem("token");
+                navigate("/");
+              }} className="w-[80px] cursor-pointer active:scale-85 text-red-600 hover:text-red-700 mt-4 font-bold rounded-lg text-[16px] transition-all">
+                Logout
+                </button>
             }
           </div>
 
