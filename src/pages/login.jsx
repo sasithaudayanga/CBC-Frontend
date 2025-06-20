@@ -19,6 +19,7 @@ export default function LoginPage() {
                 toast.success(response.data.message);
                 const token = response.data.token;
                 localStorage.setItem("token", token);
+                localStorage.setItem("role",response.data.role);
 
                 if (response.data.role === "admin") {
                     navigate("/admin");
@@ -38,6 +39,7 @@ export default function LoginPage() {
 
             toast.success(response.data.message);
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("role",response.data.role);
 
             if (response.data.role === "admin") {
                 navigate("/admin");
