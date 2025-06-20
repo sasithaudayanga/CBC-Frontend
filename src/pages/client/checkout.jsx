@@ -4,13 +4,14 @@ import toast from "react-hot-toast";
 import { BiMinus } from "react-icons/bi";
 import { BsPlus } from "react-icons/bs";
 import { VscTrash } from "react-icons/vsc";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function CheckoutPage() {
     const location = useLocation();
     const [cart, setCart] = useState(location.state?.cart || []);
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
+    const navigate=useNavigate();
 
     function getTotal() {
         let total = 0;
@@ -53,6 +54,8 @@ export default function CheckoutPage() {
             phone: phone,
             address: address,
         };
+
+        navigate("/products")
 
         for (let i = 0; i < cart.length; i++) {
             orderinformation.products[i] = {
