@@ -35,7 +35,7 @@ export default function SignupPage() {
             <div className="hidden w-[50%] h-full bg-white opacity-0"></div>
 
             <div className="w-[50%] h-full flex justify-center items-center">
-                <div className="w-[350px] h-[550px] rounded-3xl backdrop-blur-md bg-white/10 border border-white/30 shadow-2xl px-4 py-6 flex flex-col justify-center items-center transition-all">
+                <div className="w-[350px] h-[550px] rounded-3xl backdrop-blur-sm bg-white/10 border border-white/30 shadow-2xl px-4 py-6 flex flex-col justify-center items-center transition-all">
                     
                     {/* User Avatar */}
                     <div className="w-[100px] h-[100px] rounded-full mb-3 bg-[url('/userlog.png')] bg-center bg-cover border-1 border-teal-300/30"></div>
