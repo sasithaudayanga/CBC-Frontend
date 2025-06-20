@@ -5,12 +5,11 @@ import { GiHamburgerMenu, GiShoppingCart } from "react-icons/gi";
 export default function Header() {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const navigate = useNavigate();
-  const token=localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
   const [showBadge, setShowBadge] = useState(localStorage.getItem("cart-glow") === "true");
   const [addedQty, setAddedQty] = useState(parseInt(localStorage.getItem("cart-added-qty") || "0"));
 
-  // Prevent body scroll when sidebar is open
   useEffect(() => {
     document.body.style.overflow = sideBarOpen ? "hidden" : "auto";
     return () => {
@@ -22,7 +21,6 @@ export default function Header() {
     const handleCartUpdate = () => {
       const glow = localStorage.getItem("cart-glow") === "true";
       const qty = parseInt(localStorage.getItem("cart-added-qty") || "0");
-
       if (glow && qty > 0) {
         setShowBadge(true);
         setAddedQty(qty);
@@ -41,103 +39,102 @@ export default function Header() {
     navigate("/cart");
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <>
-      {/* Header */}
-      <header className="relative w-full h-[80px] shadow-lg bg-white flex
-       items-center justify-center px-6 border-b border-gray-200 z-30">
-        
-        {/*mobile responsive sidebar icon*/}
+      <header className="w-full h-[80px] bg-white shadow-md border-b border-gray-200 flex items-center justify-between px-4 md:px-10 z-30">
+        {/* Sidebar toggle - mobile only */}
         <GiHamburgerMenu
           onClick={() => setSideBarOpen(true)}
-          className="absolute left-2 text-3xl md:hidden"
+          className="text-3xl text-gray-800 cursor-pointer md:hidden"
         />
 
+        {/* Logo */}
         <img
           onClick={() => navigate("/")}
           src="/homelogo.png"
           alt="Logo"
-          className="w-[80px] h-[80px] cursor-pointer hover:scale-105 transition-transform duration-200"
+          className="w-[60px] h-[60px] cursor-pointer hover:scale-105 transition-transform duration-200"
         />
 
-        {/* Navigation Links */}
-        <div className="hidden md:flex flex-grow justify-center items-center space-x-8">
-          <Link to="/" className="text-lg font-semibold text-gray-800 hover:text-emerald-600 transition-colors duration-200">Home</Link>
-          <Link to="/products" className="text-lg font-semibold text-gray-800 hover:text-emerald-600 transition-colors duration-200">Products</Link>
-          <Link to="/about" className="text-lg font-semibold text-gray-800 hover:text-emerald-600 transition-colors duration-200">About Us</Link>
-          <Link to="/contact" className="text-lg font-semibold text-gray-800 hover:text-emerald-600 transition-colors duration-200">Contact</Link>
-       <Link to="/search" className="text-lg font-semibold text-gray-800 hover:text-emerald-600 transition-colors duration-200">Search</Link>
-        </div>
+        {/* Nav links - desktop only */}
+        <nav className="hidden md:flex gap-6 text-gray-800 font-semibold text-lg">
+          <Link to="/" className="hover:text-emerald-600 transition">Home</Link>
+          <Link to="/products" className="hover:text-emerald-600 transition">Products</Link>
+          <Link to="/about" className="hover:text-emerald-600 transition">About Us</Link>
+          <Link to="/contact" className="hover:text-emerald-600 transition">Contact</Link>
+          <Link to="/search" className="hover:text-emerald-600 transition">Search</Link>
+        </nav>
 
-        {/* Cart Icon */}
-        <div className="relative w-[160px] h-[80px] flex justify-center items-center">
-           {/*logout button */}
-          <div>
-            {
-              token==null?
-              <button onClick={()=>{
-                navigate("/login")
-              }} className="w-[50px] cursor-pointer active:scale-85 text-blue-600 hover:text-blue-700 mt-4 font-bold rounded-lg text-[16px] transition-all">
+        {/* Right section: Cart + Login/Logout */}
+        <div className="flex items-center gap-4 relative">
+          {/* Auth Button */}
+          {token ? (
+            <button
+              onClick={handleLogout}
+              className="text-sm font-semibold px-4 py-1
+               bg-red-600 text-white rounded hover:bg-red-700 active:scale-85 transition-all"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link to="/login" className="text-sm font-semibold px-4 py-1
+               bg-emerald-500 text-white rounded hover:bg-emerald-600 active:scale-85 transition-all">
                 Login
-                
-                </button>
-
-              :<button onClick={()=>{
-                localStorage.removeItem("token");
-                navigate("/");
-              }} className="w-[80px] cursor-pointer active:scale-85 text-red-600 hover:text-red-700 mt-4 font-bold rounded-lg text-[16px] transition-all">
-                Logout
-                </button>
-            }
-          </div>
-
-          <div
-            onClick={handleCartClick}
-            className="hidden md:flex text-[35px] text-emerald-600 cursor-pointer hover:scale-110 transition-transform duration-200"
-          >
-            <GiShoppingCart />
-          </div>
-
-          {showBadge && addedQty > 0 && (
-            <div className="absolute hidden md:flex top-2 right-2 w-[22px] h-[22px] rounded-full bg-red-500 text-white text-sm justify-center items-center font-bold shadow-md">
-              {addedQty}
-            </div>
+                </Link>
           )}
 
-         
+          {/* Cart Icon */}
+          <div
+            onClick={handleCartClick}
+            className="relative cursor-pointer text-3xl text-emerald-600 hover:scale-110 transition-transform hidden md:block"
+          >
+            <GiShoppingCart />
+            {showBadge && addedQty > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-[20px] h-[20px] flex items-center justify-center rounded-full shadow-md">
+                {addedQty}
+              </span>
+            )}
+          </div>
         </div>
       </header>
 
       {/* Mobile Sidebar */}
       {sideBarOpen && (
-        <div className="fixed inset-0 z-50 flex w-full h-screen bg-[#00000060] md:hidden">
-          <div className="w-[60%] bg-white h-full relative z-50">
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex md:hidden">
+          <div className="w-[70%] bg-white h-full flex flex-col">
             {/* Sidebar Header */}
-            <div className="relative w-full h-[80px] shadow-2xl flex items-center bg-white justify-center">
-              <GiHamburgerMenu
-                onClick={() => setSideBarOpen(false)}
-                className="absolute left-2 text-3xl"
-              />
+            <div className="flex items-center justify-between px-4 h-[80px] border-b shadow">
               <img
                 onClick={() => {
                   setSideBarOpen(false);
                   navigate("/");
                 }}
                 src="/homelogo.png"
-                alt="logo"
-                className="w-[80px] h-[80px] cursor-pointer hover:scale-105 transition-transform duration-200"
+                alt="Logo"
+                className="w-[60px] h-[60px] cursor-pointer hover:scale-105 transition-transform"
+              />
+              <GiHamburgerMenu
+                onClick={() => setSideBarOpen(false)}
+                className="text-3xl cursor-pointer"
               />
             </div>
 
             {/* Sidebar Links */}
-            <div className="w-full h-[calc(100%-80px)] bg-emerald-100 flex flex-col items-center gap-4 pt-6">
-              <Link to="/" onClick={() => setSideBarOpen(false)} className="text-[20px] font-medium text-gray-800">Home</Link>
-              <Link to="/products" onClick={() => setSideBarOpen(false)} className="text-[20px] font-medium text-gray-800">Products</Link>
-              <Link to="/about" onClick={() => setSideBarOpen(false)} className="text-[20px] font-medium text-gray-800">About Us</Link>
-              <Link to="/contact" onClick={() => setSideBarOpen(false)} className="text-[20px] font-medium text-gray-800">Contact</Link>
-              <Link to="/cart" onClick={() => setSideBarOpen(false)} className="text-[35px] font-medium text-green-800">
+            <div className="flex flex-col px-6 py-6 gap-4 text-lg font-medium text-gray-700">
+              <Link to="/" onClick={() => setSideBarOpen(false)}>Home</Link>
+              <Link to="/products" onClick={() => setSideBarOpen(false)}>Products</Link>
+              <Link to="/about" onClick={() => setSideBarOpen(false)}>About Us</Link>
+              <Link to="/contact" onClick={() => setSideBarOpen(false)}>Contact</Link>
+              <Link to="/search" onClick={() => setSideBarOpen(false)}>Search</Link>
+              <div onClick={() => { setSideBarOpen(false); handleCartClick(); }} className="flex items-center gap-2 text-green-700 text-xl mt-4 cursor-pointer">
                 <GiShoppingCart />
-              </Link>
+                <span>Cart</span>
+              </div>
             </div>
           </div>
         </div>
