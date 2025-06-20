@@ -7,7 +7,7 @@ export default function AboutUspage() {
 
             <div className="max-w-4xl mx-auto text-gray-700 space-y-12">
                 <p className="text-lg leading-relaxed">
-                    At <span className="font-semibold text-emerald-700">YourStore</span>, we are passionate about delivering
+                    At <span className="font-semibold text-emerald-700">Crystal Beauty Clear</span>, we are passionate about delivering
                     high-quality, reliable, and affordable products to our customers.
                     Founded with a vision to make online shopping easy and trustworthy, we curate the best items
                     to meet everyday needs and inspire modern lifestyles.

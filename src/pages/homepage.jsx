@@ -9,7 +9,7 @@ export default function Homepage() {
             {/* Overlay Text Content */}
             <div className="text-center px-6">
                 <h1 className="text-5xl md:text-6xl font-extrabold text-emerald-700 drop-shadow-sm mb-6 animate-fade-in-down">
-                    Welcome to <span className="text-emerald-500">YourStore</span>
+                    Welcome to <span className="text-emerald-500">Crystal Beauty Clear</span>
                 </h1>
 
                 <p className="text-xl md:text-2xl text-gray-700 mb-8 max-w-2xl mx-auto animate-fade-in-up">
