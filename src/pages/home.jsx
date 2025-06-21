@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import Header from "../components/header.jsx";
-import { HiH1 } from "react-icons/hi2";
 import ClientProductPage from "./client/clientProductPage.jsx";
 import ProductOverviewPage from "./client/productOverview.jsx";
 import ClientCartPage from "./client/clientCart.jsx";
@@ -15,7 +14,7 @@ import Contact from "./contactPge.jsx";
 
 export default function HomePage() {
     return (
-        <div className="w-full h-screen flex flex-col items-center ">
+        <div className="w-full h-screen overflow-hidden flex flex-col items-center ">
             <Header />
             <div className="w-full h-[calc(100vh-80px)]  flex flex-col items-center">
                 <Routes path="/*">

@@ -1,7 +1,7 @@
 export default function Contact() {
     return (
-        <main className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-100 via-white to-emerald-50 px-6 py-16">
-            <div className="max-w-xl w-full bg-white shadow-lg rounded-lg p-10 text-center">
+        <main className="w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-100 via-white to-emerald-50 px-6">
+            <div className="max-w-xl w-full bg-white shadow-lg rounded-lg p-8 text-center">
                 <h1 className="text-4xl font-bold text-emerald-700 mb-6">Contact Us</h1>
                 <p className="text-gray-600 mb-8">
                     We'd love to hear from you. Reach out to us through any of the methods below:

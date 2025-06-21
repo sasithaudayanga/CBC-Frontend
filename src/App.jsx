@@ -10,6 +10,7 @@ import { Toaster } from 'react-hot-toast';
 import TestPage1 from './pages/test';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import ForgetPasswordPage from './pages/client/forgetpwd';
+import EmailVerifcationPage from './pages/client/emailVerification';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             <Route path="/admin/*" element={<AdminPage />} />
             <Route path="/test" element={<TestPage1 />} />
             <Route path="/forget" element={<ForgetPasswordPage/>} />
+            <Route path="/verify" element={<EmailVerifcationPage/>} />
             <Route path="/*" element={<HomePage />} />
 
           </Routes>

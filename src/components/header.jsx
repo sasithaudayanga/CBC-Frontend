@@ -6,7 +6,8 @@ export default function Header() {
   const [sideBarOpen, setSideBarOpen] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  const userRole=localStorage.getItem("role");
+  const userRole = localStorage.getItem("role");
+  const verify = localStorage.getItem("verify");
 
   const [showBadge, setShowBadge] = useState(localStorage.getItem("cart-glow") === "true");
   const [addedQty, setAddedQty] = useState(parseInt(localStorage.getItem("cart-added-qty") || "0"));
@@ -65,30 +66,30 @@ export default function Header() {
 
         {/* Nav links - desktop only */}
         {
-          userRole=="admin"?
-          <nav className="hidden md:flex gap-6 text-gray-800 font-semibold text-lg">
-          <Link to="/" className="hover:text-emerald-600 transition">Home</Link>
-          <Link to="/products" className="hover:text-emerald-600 transition">Products</Link>
-          <Link to="/about" className="hover:text-emerald-600 transition">About Us</Link>
-          <Link to="/contact" className="hover:text-emerald-600 transition">Contact</Link>
-          <Link to="/search" className="hover:text-emerald-600 transition">Search</Link>
-          <Link to="/admin" className="absolute ml-[-200px] bg-emerald-600 hover:scale-110 p-1 text-white text-[15px] rounded-2xl transition">Admin-Dashboard</Link>
-        </nav>
-        :
-        <nav className="hidden md:flex gap-6 text-gray-800 font-semibold text-lg">
-          <Link to="/" className="hover:text-emerald-600 transition">Home</Link>
-          <Link to="/products" className="hover:text-emerald-600 transition">Products</Link>
-          <Link to="/about" className="hover:text-emerald-600 transition">About Us</Link>
-          <Link to="/contact" className="hover:text-emerald-600 transition">Contact</Link>
-          <Link to="/search" className="hover:text-emerald-600 transition">Search</Link>
-        </nav>
+          userRole == "admin" ?
+            <nav className="hidden md:flex gap-6 text-gray-800 font-semibold text-lg">
+              <Link to="/" className="hover:text-emerald-600 transition">Home</Link>
+              <Link to="/products" className="hover:text-emerald-600 transition">Products</Link>
+              <Link to="/about" className="hover:text-emerald-600 transition">About Us</Link>
+              <Link to="/contact" className="hover:text-emerald-600 transition">Contact</Link>
+              <Link to="/search" className="hover:text-emerald-600 transition">Search</Link>
+              <Link to="/admin" className="absolute ml-[-200px] bg-emerald-600 hover:scale-110 p-1 text-white text-[15px] rounded-2xl transition">Admin-Dashboard</Link>
+            </nav>
+            :
+            <nav className="hidden md:flex gap-6 text-gray-800 font-semibold text-lg">
+              <Link to="/" className="hover:text-emerald-600 transition">Home</Link>
+              <Link to="/products" className="hover:text-emerald-600 transition">Products</Link>
+              <Link to="/about" className="hover:text-emerald-600 transition">About Us</Link>
+              <Link to="/contact" className="hover:text-emerald-600 transition">Contact</Link>
+              <Link to="/search" className="hover:text-emerald-600 transition">Search</Link>
+            </nav>
         }
-        
+
 
         {/* Right section: Cart + Login/Logout */}
         <div className="flex items-center gap-4 relative">
           {/* Auth Button */}
-          {token ? (
+          {token && verify !== true? (
             <button
               onClick={handleLogout}
               className="text-sm font-semibold px-4 py-1
@@ -99,8 +100,8 @@ export default function Header() {
           ) : (
             <Link to="/login" className="text-sm font-semibold px-4 py-1
                bg-emerald-500 text-white rounded hover:bg-emerald-600 active:scale-85 transition-all">
-                Login
-                </Link>
+              Login
+            </Link>
           )}
 
           {/* Cart Icon */}
@@ -120,7 +121,7 @@ export default function Header() {
 
       {/* Mobile Sidebar */}
       {sideBarOpen && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex md:hidden">
+        <div className="fixed inset-0 z-70 bg-[#00000060] bg-opacity-60 flex md:hidden">
           <div className="w-[70%] bg-white h-full flex flex-col">
             {/* Sidebar Header */}
             <div className="flex items-center justify-between px-4 h-[80px] border-b shadow">

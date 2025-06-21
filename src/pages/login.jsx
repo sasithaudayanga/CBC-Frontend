@@ -19,7 +19,7 @@ export default function LoginPage() {
                 toast.success(response.data.message);
                 const token = response.data.token;
                 localStorage.setItem("token", token);
-                localStorage.setItem("role",response.data.role);
+                localStorage.setItem("role", response.data.role);
 
                 if (response.data.role === "admin") {
                     navigate("/admin");
@@ -36,15 +36,19 @@ export default function LoginPage() {
                 import.meta.env.VITE_BACKEND_URL + "/api/users/login",
                 { email, password }
             );
+            console.log(response);
 
             toast.success(response.data.message);
             localStorage.setItem("token", response.data.token);
-            localStorage.setItem("role",response.data.role);
+            localStorage.setItem("role", response.data.role);
+            localStorage.setItem("verify", response.data.verification)
 
-            if (response.data.role === "admin") {
+            if (response.data.role === "admin" && response.data.verification === true) {
                 navigate("/admin");
-            } else {
+            } if (response.data.role === "customer" && response.data.verification === true) {
                 navigate("/");
+            } else {
+                navigate("/verify");
             }
         } catch (err) {
             toast.error(err.response?.data?.message || "Login failed");
@@ -52,7 +56,7 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="w-full bg-[url('/loginbg.jpg')] bg-center bg-cover h-screen flex justify-evenly items-center">
+        <div className="w-full bg-[url('/loginbg.jpg')] bg-center bg-cover h-screen flex flex-row justify-evenly items-center">
             <div className="hidden bg-gradient-to-br  lg:block w-[50%] h-full"></div>
 
             <div className="w-[50%] h-full flex justify-center items-center">
@@ -83,7 +87,7 @@ export default function LoginPage() {
                         >
                             Sign In
                         </button>
-                        
+
                         <button onClick={googleLogin} className="flex flex-row hover:scale-102 transition-all  justify-center items-center w-[280px] h-[45px] cursor-pointer rounded-xl bg-gray-200 active:scale-90 text-white font-semibold text-lg shadow-lg">
                             <FcGoogle className="text-[20px] mx-2 " />
                             <span className=" text-[15px] text-gray-700 ">Sign in with Google</span>

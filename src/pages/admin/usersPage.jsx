@@ -46,9 +46,9 @@ export default function UsersPage() {
 
     return (
         <>
-            <div className="relative w-full h-full overflow-hidden flex flex-col px-4 py-6 bg-gray-50">
+            <div className="relative w-full h-full overflow-hidden flex flex-col px-4 py-6 ">
 
-                <div className="flex justify-end mb-4">
+                <div className="flex justify-end mt-[-10px]  mb-4">
                     <Link
                         to="/admin/signup"
                         className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-md shadow transition-all duration-200"
@@ -56,17 +56,17 @@ export default function UsersPage() {
                         Add New User
                     </Link>
                 </div>
-                <div>
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-4 border-b border-gray-300 pb-2">
+                <div className="flex pb-0 mt-[-10px] w-full  mb-4" >
+                    <h2 className="w-full text-2xl font-semibold text-gray-800 mb-4 border-b border-gray-300 pb-2">
                         User Management
                     </h2>
                 </div>
-                <div className="relative w-full h-full flex flex-col px-4 py-6 bg-gray-50">
+                <div className="relative w-full h-[450px] overflow-y-auto flex flex-col px-4 py-6 bg-gray-50">
                     {/* Loading Spinner */}
                     {isloading ? (
                         <Loading/>
                     ) : (
-                        <div className="max-h-[450px] overflow-y-auto rounded-lg shadow-lg bg-white pb-8">
+                        <div className="h-screen overflow-y-auto rounded-lg shadow-lg mt-[-20px] bg-white pb-8">
                             <table className="min-w-full text-sm text-gray-700">
                                 <thead>
                                     <tr className="bg-gray-300 text-gray-800 text-base">
