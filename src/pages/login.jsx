@@ -42,14 +42,15 @@ export default function LoginPage() {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("role", response.data.role);
             localStorage.setItem("verify", response.data.verification)
+            const verify=localStorage.getItem("verify");
+            const role=localStorage.getItem("role");
 
-            if (response.data.role === "admin" && response.data.verification === true) {
-                navigate("/admin");
-            } if (response.data.role === "customer" && response.data.verification === true) {
-                navigate("/");
-            } else {
-                navigate("/verify");
-            }
+            if(verify===false){
+                navigate("/verify")
+            }else{
+                role === "admin"?navigate("/admin"):navigate("/")
+            }            
+
         } catch (err) {
             toast.error(err.response?.data?.message || "Login failed");
         }
