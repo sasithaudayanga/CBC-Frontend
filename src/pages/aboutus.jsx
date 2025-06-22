@@ -1,6 +1,6 @@
 export default function AboutUspage() {
     return (
-        <div className="w-full h-full">
+        <div className="w-full h-full overflow-y-auto md:overflow-hidden">
             <section className=" bg-gradient-to-br from-emerald-100 via-white to-emerald-50 px-6 py-7 text-center">
                 <h2 className="text-4xl font-extrabold text-emerald-600 mb-10 tracking-tight">
                     Who We Are

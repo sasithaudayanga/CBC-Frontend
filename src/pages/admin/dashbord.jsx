@@ -65,7 +65,7 @@ export default function DashboardPage() {
 
     return (
     <div className="w-full h-full overflow-hidden flex flex-col px-4 py-6 bg-gray-50">
-      <div className=" h-full  py-5 px-4 sm:px-10">
+      <div className=" overflow-y-auto md:overflow-hidden h-full  py-5 px-4 sm:px-10">
         <h1 className="text-3xl font-bold text-center text-emerald-700 mb-10">
           Admin Dashboard Summary
         </h1>

@@ -36,8 +36,9 @@ export default function ProductOverviewPage() {
     return (
         <>
             {status == "success" && (
-                <div className="w-full h-full md:mt-10 flex flex-col md:flex-row">
-                    <h1 className="w-full block my-4 md:hidden text-center text-4xl font-semibold text-secondary">{product.productName}
+                <div className="w-full h-screen overflow-y-auto md:overflow-hidden md:h-full md:mt-10 flex flex-col md:flex-row">
+                    <h1 className="w-full h-full block my-4 md:hidden text-center py-1 md:py-0 text-4xl font-semibold text-secondary">
+                        {product.productName}
                         {
                             product.altNames.map((altNames, index) => {
                                 return (
@@ -66,7 +67,7 @@ export default function ProductOverviewPage() {
                                 }
 
                             </h1>
-                            <h1 className="text-md my-2 text-gray-500 w-full text-center font-semibold">
+                            <h1 className="text-md my-2 mt-25 md:mt-0 text-gray-500 w-full text-center font-semibold">
                                 {product.productId}</h1>
                             <p className="text-md my-2 text-gray-500 w-full font-semibold text-justify">
                                 {product.productDescription}</p>

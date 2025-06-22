@@ -94,8 +94,11 @@ export default function AdminPage() {
             <div className="  h-full w-full  border-2 border-emerald-50 shadow-inner rounded-tl-lg">
               
               {/*Admin side bar */}
-              <div className="lg:hidden">
-                <button onClick={() => setAdminSideBar(true)} className=" text-[20px] font-bold">Menu</button>
+              <div className="  lg:hidden">
+                <button onClick={() => setAdminSideBar(true)} className="bg-blue-500 p-1 
+                rounded-lg mt-2 mb-0 text-gray-300 shadow-xl shadow-blue-200 text-[20px] font-bold">
+                  Admin Menu
+                  </button>
               </div>
 
               <Routes>

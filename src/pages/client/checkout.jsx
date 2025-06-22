@@ -103,7 +103,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Mobile Order Summary */}
-            <div className="lg:hidden flex w-full h-[180px] bg-white border-t border-t-gray-100 shadow-2xl fixed bottom-20 right-4 flex-col justify-evenly items-center rounded-2xl z-50 p-2">
+            <div className="lg:hidden flex w-[98%] h-[180px] bg-white border-t border-t-gray-100 shadow-2xl fixed bottom-0  flex-col justify-evenly items-center rounded-2xl z-50 p-2">
                 <input
                     type="text"
                     placeholder="Phone number"

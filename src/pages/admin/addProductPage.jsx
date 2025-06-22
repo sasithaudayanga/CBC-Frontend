@@ -67,8 +67,8 @@ export default function AddProductPage() {
   }
 
   return (
-    <div className=" bg-gray-50 flex justify-center items-center overflow-hidden">
-      <div className="w-full max-w-md h-[500px] bg-white p-8 rounded-lg shadow-lg overflow-y-auto">
+    <div className=" bg-gray-50 flex justify-center items-center md:verflow-hidden">
+      <div className="w-full overflow-y-auto  max-w-md md:h-[500px] bg-white p-8 rounded-lg shadow-lg ">
         <h2 className="bg-green-800 rounded-md text-2xl font-extrabold text-white mb-6 text-center">
           Add New Product
         </h2>

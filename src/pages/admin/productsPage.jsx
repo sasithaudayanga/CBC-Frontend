@@ -52,7 +52,7 @@ export default function ProductsPage() {
 
 
                 {/* Add Product Button */}
-                <div className="absolute right-10  float-right w-[140px]  p-1 flex justify-end mb-4">
+                <div className="absolute md:right-10  md:float-right w-[140px] mt-15 md:mt-0 p-1 flex md:justify-end md:mb-4">
                     <Link
                         to="/admin/add-product"
                         className="bg-emerald-600 hover:bg-emerald-700 hover:scale-110 text-white font-bold px-4 py-1 rounded-md shadow transition-all duration-200"

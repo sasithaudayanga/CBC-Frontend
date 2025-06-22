@@ -11,7 +11,7 @@ export default function ClientCartPage() {
     return (
         <div className="relative w-[90%] lg:w-full h-full lg:h-full flex flex-col items-center gap-2">
 
-            
+
             <div className="hidden lg:flex w-[250px] h-[100px] bg-white shadow-2xl absolute top-1 right-1 flex-col justify-evenly items-center rounded-2xl">
                 <p className="text-2xl text-secondary font-bold">
                     Total: LKR <span>{getTotal().toFixed(2)}</span>
@@ -26,20 +26,9 @@ export default function ClientCartPage() {
             </div>
 
             {/*Mobile Checkout Block - Visible only on small screens */}
-            <div className="lg:hidden flex w-full h-[100px] bg-white border-t border-t-gray-100 shadow-2xl fixed bottom-20 right-4 flex-col justify-evenly items-center rounded-2xl z-50">
-                <p className="text-[15px] text-secondary font-bold">
-                    Total: LKR <span>{getTotal().toFixed(2)}</span>
-                </p>
-                <Link
-                    to="/checkout"
-                    state={{ cart }}
-                    className="w-[150px] text-center text-[18px] text-white bg-green-600 font-semibold cursor-pointer rounded-lg hover:bg-green-700 hover:scale-105 transition"
-                >
-                    Checkout
-                </Link>
-            </div>
 
-            
+
+
             {
                 cart.map((item, productId) => (
                     <div
@@ -69,7 +58,7 @@ export default function ClientCartPage() {
                             }
                         </div>
 
-                        
+
                         <div className=" w-[40px] lg:w-[100px] h-full flex flex-col lg:flex-row lg:justify-between items-center">
                             <button
                                 onClick={() => {
@@ -92,14 +81,14 @@ export default function ClientCartPage() {
                             </button>
                         </div>
 
-                        
+
                         <div className=" w-[80px] lg:w-[150px] h-full flex flex-col justify-center items-center">
                             <h1 className="text-[10px] lg:text-[15px] text-green-600">
                                 Total: {(item.price * item.qty).toFixed(2)}
                             </h1>
                         </div>
 
-                     
+
                         <div className="group">
                             <button
                                 onClick={() => {
@@ -115,9 +104,21 @@ export default function ClientCartPage() {
                             </button>
                         </div>
 
-                       </div>
+                    </div>
                 ))
             }
+            <div className="lg:hidden flex w-full h-[100px] bg-white border-t border-t-gray-100 shadow-2xl fixed bottom-0 right-4 flex-col justify-evenly items-center rounded-2xl z-50">
+                <p className="text-[15px] text-secondary font-bold">
+                    Total: LKR <span>{getTotal().toFixed(2)}</span>
+                </p>
+                <Link
+                    to="/checkout"
+                    state={{ cart }}
+                    className="w-[150px] text-center text-[18px] text-white bg-green-600 font-semibold cursor-pointer rounded-lg hover:bg-green-700 hover:scale-105 transition"
+                >
+                    Checkout
+                </Link>
+            </div>
         </div>
     );
 }
