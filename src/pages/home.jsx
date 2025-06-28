@@ -8,6 +8,7 @@ import SearchProductPage from "./client/searchProduct.jsx";
 import Homepage from "./homepage.jsx";
 import AboutUspage from "./aboutus.jsx";
 import Contact from "./contactPge.jsx";
+import ReviewList from "./review.jsx";
 
 
 

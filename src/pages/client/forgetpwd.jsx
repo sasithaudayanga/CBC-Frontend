@@ -10,7 +10,7 @@ export default function ForgetPasswordPage() {
     const [otp, setOTP] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [conPassword, setConPassword] = useState("");
-    const navigte=useNavigate();
+    const navigte = useNavigate();
 
     function sendOTP() {
         if (!email) {
@@ -44,7 +44,7 @@ export default function ForgetPasswordPage() {
         }
 
         axios
-            .post(import.meta.env.VITE_BACKEND_URL+"/api/users/resetpwd", {
+            .post(import.meta.env.VITE_BACKEND_URL + "/api/users/resetpwd", {
                 email: email,
                 otp: otpinNumber,
                 newPassword: newPassword
@@ -52,6 +52,9 @@ export default function ForgetPasswordPage() {
             .then((response) => {
                 toast.success("Password reset successful!");
                 console.log(response.data);
+                localStorage.removeItem("token");
+                localStorage.removeItem("role");
+                localStorage.removeItem("verify");
                 navigte("/login");
             })
             .catch((err) => {
@@ -123,7 +126,7 @@ export default function ForgetPasswordPage() {
                             </button>
 
                             <button
-                                onClick={()=>{
+                                onClick={() => {
                                     setOTPsent(false);
                                 }}
                                 className="w-full py-2 bg-white text-emerald-600 border border-emerald-600 font-semibold rounded-lg hover:bg-emerald-50 active:scale-95 transition duration-200"

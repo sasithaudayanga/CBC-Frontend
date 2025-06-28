@@ -21,9 +21,12 @@ export default function EmailVerifcationPage() {
         }
 
         axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/verify`, { email, otp }).then((res) => {
-                toast.success(res.data.message);
-                navigate("/login"); 
-            })
+            toast.success(res.data.message);
+            localStorage.removeItem("token");
+            localStorage.removeItem("role");
+            localStorage.removeItem("verify");
+            navigate("/login");
+        })
             .catch((err) => {
                 toast.error(err.response?.data?.message || "Verification failed");
                 console.error(err);
@@ -34,7 +37,7 @@ export default function EmailVerifcationPage() {
 
     return (
         <>
-              <Header/>   
+            <Header />
             <div className="w-full min-h-[calc(100vh-80px)] flex items-center justify-center bg-gray-100 px-4">
                 <div className="w-full max-w-md bg-white rounded-3xl shadow-xl p-8">
                     <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
