@@ -9,6 +9,7 @@ import Homepage from "./homepage.jsx";
 import AboutUspage from "./aboutus.jsx";
 import Contact from "./contactPge.jsx";
 import ReviewList from "./review.jsx";
+import AdminPage from "./adminPage.jsx";
 
 
 
@@ -26,6 +27,7 @@ export default function HomePage() {
                   <Route path="/*" element={<h1>404 Not Found</h1>}/>
                   <Route path="/cart" element={<ClientCartPage/>}/>
                   <Route path="/search" element={<SearchProductPage/>}/>
+                  <Route path="/admin/*" element={<AdminPage />} />
                   <Route path="/checkout" element={<CheckoutPage/>}/>
                   <Route path="/overview/:id" element={<ProductOverviewPage/>}/>
                 </Routes>

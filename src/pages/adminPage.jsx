@@ -66,7 +66,7 @@ export default function AdminPage() {
   
   return (
     <>
-      <Header />
+   
 
       {status === "loading"||status === "reject" ?
         <Loading /> :

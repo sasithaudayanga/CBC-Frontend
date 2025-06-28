@@ -74,7 +74,7 @@ export default function Header() {
               <Link to="/about" className="hover:text-emerald-600 transition">About Us</Link>
               <Link to="/contact" className="hover:text-emerald-600 transition">Contact</Link>
               <Link to="/search" className="hover:text-emerald-600 transition">Search</Link>
-              <Link to="/admin" className="absolute ml-[-200px] bg-emerald-600 hover:scale-110 p-1 text-white text-[15px] rounded-2xl transition">Admin-Dashboard</Link>
+              <Link to="/admin" className="hover:text-emerald-600 transition">Admin-Dashboard</Link>
             </nav>
             :
             <nav className="hidden md:flex gap-6 text-gray-800 font-semibold text-lg">
