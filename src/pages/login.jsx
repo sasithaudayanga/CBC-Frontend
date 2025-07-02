@@ -15,7 +15,6 @@ export default function LoginPage() {
             axios.post(import.meta.env.VITE_BACKEND_URL + "/api/users/login/google", {
                 accessToken: accessToken
             }).then((response) => {
-                console.log(response.data);
                 toast.success(response.data.message);
                 const token = response.data.token;
                 localStorage.setItem("token", token);
