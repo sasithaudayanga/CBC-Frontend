@@ -38,44 +38,50 @@ export default function CheckoutPage() {
     }
 
     async function placeOrder() {
-        const token = localStorage.getItem("token");
-        if (!token) {
-            toast.error("Please login to place order");
-            return;
-        }
+    const token = localStorage.getItem("token");
+    if (!token) {
+        toast.error("Please login to place order");
+        return;
+    }
 
-        if (cart.length === 0) {
-            toast.error("Your cart is empty please add item to cart");
-            return;
-        }
+    if (cart.length === 0) {
+        toast.error("Your cart is empty please add item to cart");
+        return;
+    }
 
-        const orderinformation = {
-            products: [],
-            phone: phone,
-            address: address,
-        };
+    const orderinformation = {
+        products: cart.map((item) => ({
+            productId: item.productId,
+            qty: item.qty,
+        })),
+        phone,
+        address,
+    };
 
-        navigate("/products")
-
-        for (let i = 0; i < cart.length; i++) {
-            orderinformation.products[i] = {
-                productId: cart[i].productId,
-                qty: cart[i].qty,
-            };
-        }
-
-        try {
-            const response = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/orders", orderinformation, {
+    try {
+        const response = await axios.post(
+            import.meta.env.VITE_BACKEND_URL + "/api/orders",
+            orderinformation,
+            {
                 headers: {
                     Authorization: "Bearer " + token,
                 },
-            });
-            toast.success(response.data.message);
-            setCart([]);
-        } catch (err) {
-            toast.error(err.response?.data?.message || "Order failed");
-        }
+            }
+        );
+
+        toast.success(response.data.message);
+
+        // Clear cart
+        setCart([]);
+        localStorage.removeItem("cart");
+
+        // Navigate after order placement and cart clear
+        navigate("/products");
+    } catch (err) {
+        toast.error(err.response?.data?.message || "Order failed");
     }
+}
+
 
     return (
         <div className="relative w-[90%] lg:w-full h-full lg:h-full flex flex-col items-center gap-2">
